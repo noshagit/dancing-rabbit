@@ -28,7 +28,7 @@ document.querySelectorAll(".time-button").forEach(button => {
 
 const playersList = document.getElementById("players-list");
 
-const players = ["Emilia", "Nathaël", "Ilian", "Natïha", "Corentin", "Goatin"];
+const players = ["Emilia", "Emi", "Bunny bun", "My Princess"];
 
 function updatePlayersList(players) {
     playersList.innerHTML = "";
@@ -40,3 +40,42 @@ function updatePlayersList(players) {
 }
 
 updatePlayersList(players);
+
+document.getElementById("reset-button").addEventListener("click", function () {
+    document.getElementById("rounds-input").value = "";
+
+    selectedTime.textContent = "01:00";
+
+    timeOptions.style.display = "none";
+    modeOptions.style.display = "none";
+    timeArrow.classList.remove("arrow-down");
+    timeArrow.classList.add("arrow-up");
+    modeArrow.classList.remove("arrow-down");
+    modeArrow.classList.add("arrow-up");
+});
+
+document.getElementById("hard-button").addEventListener("click", function () {
+    document.getElementById("rounds-input").value = "10";
+
+    selectedTime.textContent = "00:15";
+
+    timeOptions.style.display = "none";
+    modeOptions.style.display = "none";
+    timeArrow.classList.remove("arrow-down");
+    timeArrow.classList.add("arrow-up");
+    modeArrow.classList.remove("arrow-down");
+    modeArrow.classList.add("arrow-up");
+});
+
+document.getElementById("easy-button").addEventListener("click", function () {
+    document.getElementById("rounds-input").value = "5";
+
+    selectedTime.textContent = "02:00";
+
+    timeOptions.style.display = "none";
+    modeOptions.style.display = "none";
+    timeArrow.classList.remove("arrow-down");
+    timeArrow.classList.add("arrow-up");
+    modeArrow.classList.remove("arrow-down");
+    modeArrow.classList.add("arrow-up");
+});

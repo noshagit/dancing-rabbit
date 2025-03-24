@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blind Test - Accueil</title>
+    <link rel="stylesheet" href="blind-test-menu.css">
+</head>
+<body>
+    <div class="top-buttons">
+        <a href="/index.html" class="button">Retour</a>
+        <button class="button" id="rules-button">Règlement</button>
+    </div>
+
+    <div class="container">
+        <div class="config-section">
+            <div class="config-card">
+                <h1>BLIND TEST<br><br>Configuration</h1>
+                <div class="buttons-container">
+                    <button class="button" id="reset-button">Reset</button>
+                    <button class="button" id="easy-button">Easy</button>
+                    <button class="button" id="quick-button">Blitzkrieg</button>
+                    <button class="button" id="hard-button">Hard</button>
+                </div>
+            </div>
+
+            <div class="config-card">
+                <h2>NOMBRE DE TOURS</h2>
+                <div class="input-bar">
+                    <input type="text" id="rounds-input" placeholder="Ex: 5">
+                </div>
+            </div>
+
+            <div class="config-card">
+                <h2>DURÉE EXTRAIT</h2>
+                <div class="time-bar">
+                    <button id="time-arrow">▶</button>
+                    <span id="selected-time">10s</span>
+                </div>
+                <div class="time-options" id="time-options">
+                    <button class="time-button">5s</button>
+                    <button class="time-button">10s</button>
+                    <button class="time-button">20s</button>
+                    <button class="time-button">30s</button>
+                </div>
+            </div>
+            
+            <div class="config-card">
+                <h2>MODE DE JEU</h2>
+                <div class="mode-bar">
+                    <button id="mode-arrow">▶</button>
+                    <span id="selected-mode">Normal</span>
+                </div>
+                <div class="mode-options" id="mode-options">
+                    <button class="mode-button">Normal</button>
+                    <button class="mode-button">Accéléré</button>
+                    <button class="mode-button">Inversé</button>
+                    <button class="mode-button">Ralenti</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="players-section">
+            <div class="players-card">
+                <h2>JOUEURS</h2>
+                <ul id="players-list">
+                </ul>
+                <a href="blind-test.html" class="play-button">Play</a>
+            </div>
+            <div class="bunny-ears">
+                <div class="bunny-ear-left">
+                    <div class="bunny-ear-inner-left"></div>
+                </div>
+                <div class="bunny-ear-right">
+                    <div class="bunny-ear-inner-right"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="rules-popup">
+        <div class="popup-content">
+            <h2>Règlement</h2>
+            <p>Une musique sera choisie aléatoirement, et restera pendant un temps choisi.</p>
+            <p>Devinez le titre de la chanson, et gagnez des points selon la rapidité de votre réponse.</p>
+            <p>Quatres modes de jeu sont disponible afin de pimenter vos parties !</p>
+            <button id="close-popup">Fermer</button>
+        </div>
+    </div>
+
+    <script src="blind-test-menu.js"></script>
+</body>
+</html>

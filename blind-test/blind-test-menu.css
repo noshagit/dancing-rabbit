@@ -24,14 +24,15 @@ h1, h2, h3, h4, h5, h6, p, span, label, button {
 
 .top-buttons {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     padding: 20px;
-    gap: 15px;
+    width: 100%;
 }
 
 .top-buttons a {
     text-decoration: none;
     display: inline-block;
+    margin-right: 10px;
 }
 
 .button {
@@ -58,12 +59,13 @@ h1, h2, h3, h4, h5, h6, p, span, label, button {
 
 .container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     margin-top: 50px;
+    gap: 30px;
 }
 
 .config-section {
-    width: 50%;
+    width: 60%;
 }
 
 .config-card, .players-card {
@@ -118,49 +120,10 @@ input {
 }
 
 .players-section {
-    width: 30%;
+    width: 35%;
     position: relative;
     padding-top: 60px;
-}
-
-.bunny-ears {
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 180px;
-    display: flex;
-    justify-content: space-between;
-    z-index: -1;
-}
-
-.bunny-ear-left, .bunny-ear-right {
-    position: relative;
-    width: 60px;
-    height: 120px;
-    background-color: white;
-    border-radius: 20px 20px 0 0;
-    z-index: 10;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.bunny-ear-inner-left, .bunny-ear-inner-right {
-    position: absolute;
-    top: 15px;
-    width: 35px;
-    left: 22%;
-    right: 0;
-    bottom: 0;
-    background: #FFC0CB 100%;
-    border-radius: 12px;
-}
-
-.bunny-ear-left {
-    transform: rotate(-15deg);
-}
-
-.bunny-ear-right {
-    transform: rotate(15deg);
+    margin-left: 20px;
 }
 
 .players-card ul {
@@ -195,6 +158,7 @@ input {
     align-items: center;
     justify-content: center;
     transition: all 0.1s ease-in-out;
+    margin-top: 20px;
 }
 
 .players-card .play-button-container {
@@ -202,7 +166,6 @@ input {
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-top: 20px;
 }
 
 .play-button:hover {
@@ -281,7 +244,7 @@ input {
 #time-arrow {
     background: none;
     border: none;
-    color: #EFB6C8;
+    color: #433878;
     font-size: 1.5em;
     cursor: pointer;
     margin-right: 10px;
@@ -312,4 +275,140 @@ input::placeholder {
     100% {
         transform: scale(1);
     }
+}
+
+.time-selector, .mode-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    width: 100%;
+}
+
+.arrow-container {
+    background-color: #433878;
+    padding: 5px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#time-arrow, #mode-arrow {
+    background: none;
+    border: none;
+    color: #EFB6C8;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.arrow-down {
+    transform: rotate(90deg);
+}
+
+.arrow-up {
+    transform: rotate(0deg);
+}
+
+.time-bar {
+    background-color: #A888B5;
+    padding: 5px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 10px auto;
+}
+
+#selected-time {
+    font-family: 'Press Start 2P', monospace;
+    color: #433878;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.mode-bar {
+    background-color: #A888B5;
+    padding: 5px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 10px auto;
+}
+
+.mode-options {
+    display: none;
+    margin-top: 10px;
+    text-align: center;
+}
+
+#selected-mode {
+    font-family: 'Press Start 2P', monospace;
+    color: #433878;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.mode-button {
+    background-color: #A888B5;
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: 'Press Start 2P', monospace;
+    color: #433878;
+    font-weight: 700;
+}
+
+.bunny-ears {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    display: flex;
+    justify-content: space-between;
+    z-index: -1;
+}
+
+.bunny-ear-left, .bunny-ear-right {
+    position: relative;
+    width: 60px;
+    height: 120px;
+    background-color: white;
+    border-radius: 20px 20px 0 0;
+    z-index: 10;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.bunny-ear-inner-left, .bunny-ear-inner-right {
+    position: absolute;
+    top: 15px;
+    width: 35px;
+    left: 22%;
+    right: 0;
+    bottom: 0;
+    background: #FFC0CB 100%;
+    border-radius: 12px;
+}
+
+.bunny-ear-left {
+    transform: rotate(-15deg);
+}
+
+.bunny-ear-right {
+    transform: rotate(15deg);
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-direction: column;
 }
