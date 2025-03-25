@@ -1,4 +1,4 @@
-package Backend
+package handlers
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 
 // TODO : Routes vers le petit back
 
-func petitBacHandler(router *mux.Router) {
+func PetitBacHandler(router *mux.Router) {
 	router.HandleFunc("/game/petitback/{id}", func(w http.ResponseWriter, router *http.Request) {
 		fmt.Fprintln(w, "petitback")
 	}).Methods("POST")
@@ -16,7 +16,7 @@ func petitBacHandler(router *mux.Router) {
 
 // TODO : Routes vers le blind test
 
-func blindTestHandler(router *mux.Router) {
+func BlindTestHandler(router *mux.Router) {
 	router.HandleFunc("/game/blindtest/{id}", func(w http.ResponseWriter, router *http.Request) {
 		fmt.Fprintln(w, "blindtest")
 	}).Methods("POST")
@@ -24,7 +24,7 @@ func blindTestHandler(router *mux.Router) {
 
 // TODO : Routes vers death rhythm
 
-func deafRhythmHandler(router *mux.Router) {
+func DeafRhythmHandler(router *mux.Router) {
 	router.HandleFunc("/game/deathrhythm/{id}", func(w http.ResponseWriter, router *http.Request) {
 		fmt.Fprintln(w, "")
 	}).Methods("POST")

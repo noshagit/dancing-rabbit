@@ -1,4 +1,4 @@
-package Backend
+package database
 
 import (
 	"fmt"

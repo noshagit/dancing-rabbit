@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"Backend"
+	"Backend/handlers"
+    //"Backend/database"
 	"github.com/gorilla/mux"
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -35,12 +36,12 @@ func main() {
 	landingPageHandler(router)
 	presentationHandler(router)
 
-	Backend.registerHandler(router)
-	Backend.loginHandler(router)
-	Backend.profileHandler(router)
-	Backend.petitBacHandler(router)
-	Backend.blindTestHandler(router)
-	Backend.deafRhythmHandler(router)
+	handlers.RegisterHandler(router)
+	handlers.LoginHandler(router)
+	handlers.ProfileHandler(router)
+	handlers.PetitBacHandler(router)
+	handlers.BlindTestHandler(router)
+	handlers.DeafRhythmHandler(router)
 
 	fmt.Println("Le serveur est lancer sous le port 8080 : http://localhost:8080")
 	http.ListenAndServe(":8080", router)

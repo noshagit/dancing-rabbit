@@ -1,17 +1,18 @@
-package Backend
+package handlers
 
 import (
 	"fmt"
-	"net/http"
 	"log"
-	"golang.org/x/crypto/bcrypt"
-	_ "github.com/mattn/go-sqlite3"
+	"net/http"
+
 	"github.com/gorilla/mux"
+	_ "github.com/mattn/go-sqlite3"
+	"golang.org/x/crypto/bcrypt"
 )
 
 // TODO : Routes vers page de login
 
-func loginHandler(router *mux.Router) {
+func LoginHandler(router *mux.Router) {
 	router.HandleFunc("/login", func(w http.ResponseWriter, router *http.Request) {
 		fmt.Fprintln(w, "login")
 	}).Methods("POST")
@@ -19,7 +20,7 @@ func loginHandler(router *mux.Router) {
 
 // TODO : Routes vers page de register
 
-func registerHandler(router *mux.Router) {
+func RegisterHandler(router *mux.Router) {
 	router.HandleFunc("/register", func(w http.ResponseWriter, router *http.Request) {
 		fmt.Fprintln(w, "register")
 	}).Methods("POST")
@@ -27,7 +28,7 @@ func registerHandler(router *mux.Router) {
 
 // TODO : Routes vers page de profil
 
-func profileHandler(router *mux.Router) {
+func ProfileHandler(router *mux.Router) {
 	router.HandleFunc("/profil", func(w http.ResponseWriter, router *http.Request) {
 		fmt.Fprintln(w, "profil")
 	}).Methods("POST")
@@ -41,7 +42,7 @@ func hashPassword(password string) string {
 	return string(hash)
 }
 
-func checkPassword(password, hashedPassword string) bool {
+func CheckPassword(password, hashedPassword string) bool {
 	hashedInput := hashPassword(password)
 	return hashedInput == hashedPassword
 }
