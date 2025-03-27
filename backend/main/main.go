@@ -1,24 +1,22 @@
 package main
 
 import (
+	"Backend/database"
+	"Backend/handlers"
 	"fmt"
 	"net/http"
-	"Backend/handlers"
-    "Backend/database"
+
 	"github.com/gorilla/mux"
 	_ "github.com/mattn/go-sqlite3"
 )
 
 // ====== ROUTES ====== //
 
-// TODO : Routes vers la racine ( landing page )
 func landingPageHandler(router *mux.Router) {
 	router.HandleFunc("/", func(w http.ResponseWriter, router *http.Request) {
-		fmt.Fprintln(w, "welcome")
+		fmt.Println("Landing page")
 	}).Methods("POST")
 }
-
-// TODO : Routes vers page de présentation des jeux
 
 func presentationHandler(router *mux.Router) {
 	router.HandleFunc("/game", func(w http.ResponseWriter, router *http.Request) {

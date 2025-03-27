@@ -10,23 +10,17 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// TODO : Routes vers page de login
-
 func LoginHandler(router *mux.Router) {
 	router.HandleFunc("/login", func(w http.ResponseWriter, router *http.Request) {
 		fmt.Fprintln(w, "login")
 	}).Methods("POST")
 }
 
-// TODO : Routes vers page de register
-
 func RegisterHandler(router *mux.Router) {
 	router.HandleFunc("/register", func(w http.ResponseWriter, router *http.Request) {
 		fmt.Fprintln(w, "register")
 	}).Methods("POST")
 }
-
-// TODO : Routes vers page de profil
 
 func ProfileHandler(router *mux.Router) {
 	router.HandleFunc("/profil", func(w http.ResponseWriter, router *http.Request) {
