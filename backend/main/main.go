@@ -13,15 +13,42 @@ import (
 // ====== ROUTES ====== //
 
 func landingPageHandler(router *mux.Router) {
-	router.HandleFunc("/", func(w http.ResponseWriter, router *http.Request) {
-		fmt.Println("Landing page")
-	}).Methods("POST")
+	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/index.html")
+	}).Methods("GET")
+
+	router.HandleFunc("/index.js", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/index.js")
+	}).Methods("GET")
+
+	router.HandleFunc("/index.css", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/index.css")
+	}).Methods("GET")
 }
 
 func presentationHandler(router *mux.Router) {
-	router.HandleFunc("/game", func(w http.ResponseWriter, router *http.Request) {
-		fmt.Fprintln(w, "pres")
-	}).Methods("POST")
+	router.HandleFunc("/main-menu/menu.html", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/main-menu/menu.html")
+	}).Methods("GET")
+
+	router.HandleFunc("/main-menu/menu.js", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/main-menu/menu.js")
+	}).Methods("GET")
+
+	router.HandleFunc("/main-menu/menu.css", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/main-menu/menu.css")
+	}).Methods("GET")
+	router.HandleFunc("/images/petit-bac.png", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/images/petit-bac.png")
+	}).Methods("GET")
+
+	router.HandleFunc("/images/deaf-rhythm.png", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/images/deaf-rhythm.png")
+	}).Methods("GET")
+
+	router.HandleFunc("/images/blind-test.png", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/images/blind-test.png")
+	}).Methods("GET")
 }
 
 // ====== MAIN ====== //
