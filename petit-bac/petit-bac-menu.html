@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petit Bac - Accueil</title>
+    <link rel="stylesheet" href="petit-bac-menu.css">
+</head>
+<body>
+    <div class="top-buttons">
+        <a href="/main-menu/menu.html" class="button">Retour</a>
+        <button class="button" id="rules-button">Règlement</button>
+    </div>
+
+    <div class="container">
+        <div class="config-section">
+            <div class="config-card">
+                <h1>PETIT BAC<br><br>Configuration</h1>
+                <div class="buttons-container">
+                    <button class="button" id="reset-button">Reset</button>
+                    <button class="button" id="easy-button">Easy</button>
+                    <button class="button" id="hard-button">Hard</button>
+                </div>
+            </div>
+
+            <div class="config-card">
+                <h2>NOMBRE DE TOURS</h2>
+                <div class="input-bar">
+                    <input type="text" id="rounds-input" placeholder="Ex: 5">
+                </div>
+            </div>
+            
+            <div class="config-card">
+                <h2>TEMPS PAR TOUR</h2>
+                <div class="input-bar">
+                    <div class="time-selector">
+                        <button id="time-arrow">▶</button>
+                        <span id="selected-time">02:00</span>
+                    </div>
+                </div>
+                <div class="time-options" id="time-options">
+                    <button class="time-button">00:30</button>
+                    <button class="time-button">01:00</button>
+                    <button class="time-button">02:00</button>
+                    <button class="time-button">05:00</button>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="players-section">
+            <div class="players-card">
+                <h2>JOUEURS</h2>
+                <ul id="players-list">
+                </ul>
+                <a href="petit-bac.html" class="play-button">Play</a>
+            </div>
+            <div class="bunny-ears">
+                <div class="bunny-ear-left">
+                    <div class="bunny-ear-inner-left"></div>
+                </div>
+                <div class="bunny-ear-right">
+                    <div class="bunny-ear-inner-right"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="rules-popup">
+        <div class="popup-content">
+            <h2>Règlement</h2>
+            <p>Une lettre est sélectionnée aléatoirement et vous devez trouver un mot correspondant aux catégories données commençant par cette lettre.</p>
+            <p>Si vous trouvez un mot et que personne d'autre ne l'a donné vous gagnez 2 points, 1 points si quelqu'un a donné aussi ce mot et 0 point s'il n'y a pas de réponse ou si votre réponse est voté fausse par l'ensemble des joueurs.</p>
+            <p>Le joueur avec le plus de points à la fin de la partie gagne.</p>
+            <button id="close-popup">Fermer</button>
+        </div>
+    </div>
+
+    <script src="petit-bac-menu.js"></script>
+</body>
+</html>
