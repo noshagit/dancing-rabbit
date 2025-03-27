@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"Backend/handlers"
-    //"Backend/database"
+    "Backend/database"
 	"github.com/gorilla/mux"
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -29,7 +29,7 @@ func presentationHandler(router *mux.Router) {
 // ====== MAIN ====== //
 
 func main() {
-	// .connectToDatabase()
+	database.ConnectToDatabase()
 
 	router := mux.NewRouter()
 

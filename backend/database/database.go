@@ -5,7 +5,7 @@ import (
 	"database/sql"
 )
 
-func connectToDatabase() {
+func ConnectToDatabase() {
 	db, err := sql.Open("sqlite3", "./dancing.db")
 	if err != nil {
 		panic(err)
