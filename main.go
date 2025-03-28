@@ -65,7 +65,6 @@ func main() {
 // User Input (temporary)
 func (g *Game) UserInput() string {
 	var input string
-	
 	println("Enter a word")
 	_, _ = fmt.Scanln(&input)
 	return input
@@ -118,4 +117,3 @@ func (g *Game) SetTimer(){
 		g.Timer = g.Timer 
 	}
 }
-
