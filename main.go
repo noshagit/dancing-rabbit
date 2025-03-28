@@ -18,9 +18,9 @@ type Categories struct {
 
 // Struct Player
 type Player struct {
-	Name      string
-	Score     int
-	Responses []string
+	Name  string
+	Score int
+	Vote  int
 }
 
 // Struct of the Game
@@ -29,7 +29,6 @@ type Game struct {
 	Round               int      // Round of the game
 	LetterAlreadyChoose []string // Letter already choose by the computer
 	Timer               int      // Timer of the game
-	Players             []Player // Players of the game
 }
 
 // Function main
@@ -63,26 +62,13 @@ func main() {
 	
 }
 
-func (g *Game) SetTimer(){
-	fmt.Println("how long did the tour last (in secondes)?")
-	_, _ = fmt.Scanln(&g.Timer)
-	if g.Timer <= 0 {
-		fmt.Println("The time must be over 0 seconds, otherwise the game will not start.")
-		g.SetTimer()
-	}
-	if g.Timer > 0 {
-		g.Timer = g.Timer 
-	}
-}
-
 // User Input (temporary)
 func (g *Game) UserInput() string {
-	var WordInput string
-
+	var input string
+	
 	println("Enter a word")
-	_, _ = fmt.Scanln(&WordInput)
-
-	return WordInput
+	_, _ = fmt.Scanln(&input)
+	return input
 }
 
 // Random letter
@@ -121,4 +107,15 @@ func (g *Game) CheckFirstLetter(word string) bool {
 	return false
 }
 
+func (g *Game) SetTimer(){
+	fmt.Println("how long did the tour last (in secondes)?")
+	_, _ = fmt.Scanln(&g.Timer)
+	if g.Timer <= 0 {
+		fmt.Println("The time must be over 0 seconds, otherwise the game will not start.")
+		g.SetTimer()
+	}
+	if g.Timer > 0 {
+		g.Timer = g.Timer 
+	}
+}
 
