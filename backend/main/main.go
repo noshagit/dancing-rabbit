@@ -38,6 +38,7 @@ func presentationHandler(router *mux.Router) {
 	router.HandleFunc("/main-menu/menu.css", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/main-menu/menu.css")
 	}).Methods("GET")
+	
 	router.HandleFunc("/images/petit-bac.png", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/images/petit-bac.png")
 	}).Methods("GET")

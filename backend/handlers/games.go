@@ -7,19 +7,19 @@ import (
 )
 
 func PetitBacHandler(router *mux.Router) {
-	router.HandleFunc("/game/petitback/{id}", func(w http.ResponseWriter, router *http.Request) {
+	router.HandleFunc("/game/petitback", func(w http.ResponseWriter, router *http.Request) {
 		fmt.Fprintln(w, "petitback")
 	}).Methods("POST")
 }
 
 func BlindTestHandler(router *mux.Router) {
-	router.HandleFunc("/game/blindtest/{id}", func(w http.ResponseWriter, router *http.Request) {
+	router.HandleFunc("/game/blindtest", func(w http.ResponseWriter, router *http.Request) {
 		fmt.Fprintln(w, "blindtest")
 	}).Methods("POST")
 }
 
 func DeafRhythmHandler(router *mux.Router) {
-	router.HandleFunc("/game/deathrhythm/{id}", func(w http.ResponseWriter, router *http.Request) {
+	router.HandleFunc("/game/deathrhythm", func(w http.ResponseWriter, router *http.Request) {
 		fmt.Fprintln(w, "")
 	}).Methods("POST")
 }
