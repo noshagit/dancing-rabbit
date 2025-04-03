@@ -1,7 +1,6 @@
 package main
 
 import (
-	"Backend/database"
 	"Backend/handlers"
 	"fmt"
 	"net/http"
@@ -55,7 +54,6 @@ func presentationHandler(router *mux.Router) {
 // ====== MAIN ====== //
 
 func main() {
-	database.ConnectToDatabase()
 
 	router := mux.NewRouter()
 
@@ -65,9 +63,9 @@ func main() {
 	handlers.RegisterHandler(router)
 	handlers.LoginHandler(router)
 	handlers.ProfileHandler(router)
-	handlers.PetitBacHandler(router)
-	handlers.BlindTestHandler(router)
-	handlers.DeafRhythmHandler(router)
+	handlers.PetitBacMenuHandler(router)
+	handlers.BlindTestMenuHandler(router)
+	handlers.DeafRhythmMenuHandler(router)
 
 	fmt.Println("Le serveur est lancer sous le port 8080 : http://localhost:8080")
 	http.ListenAndServe(":8080", router)
