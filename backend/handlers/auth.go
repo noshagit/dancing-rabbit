@@ -124,16 +124,15 @@ func RegisterHandler(router *mux.Router) {
 
 		stmt, err := db.Prepare("INSERT INTO users (pseudo, email, password) VALUES (?, ?, ?)")
 		if err != nil {
-			http.Error(w, "Erreur lors de la préparation de la requête", http.StatusInternalServerError)
 			log.Println("Erreur de préparation DB:", err)
+			http.Error(w, "Erreur serveur", http.StatusInternalServerError)
 			return
 		}
 		defer stmt.Close()
 
-		_, err = stmt.Exec(user.Pseudo, user.Email, hashedPassword)
-		if err != nil {
-			http.Error(w, "Erreur lors de l'insertion dans la base", http.StatusInternalServerError)
+		if _, err = stmt.Exec(user.Pseudo, user.Email, hashedPassword); err != nil {
 			log.Println("Erreur d'insertion DB:", err)
+			http.Error(w, "Erreur serveur", http.StatusInternalServerError)
 			return
 		}
 
