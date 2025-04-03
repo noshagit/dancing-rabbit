@@ -108,11 +108,6 @@ func RegisterHandler(router *mux.Router) {
 		}
 
 		hashedPassword := hashPassword(user.Password)
-		if err != nil {
-			http.Error(w, "Erreur de hachage du mot de passe", http.StatusInternalServerError)
-			log.Println("Erreur de hachage du mot de passe:", err)
-			return
-		}
 
 		db, err := sql.Open("sqlite3", "/home/ilian/dancing-rabbit/backend/database/dancing.db")
 		if err != nil {
