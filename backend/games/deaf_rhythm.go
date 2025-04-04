@@ -1,11 +1,18 @@
-package games
+package main
+
+// package games
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"html/template"
 	"log"
 	"math"
 	"math/rand/v2"
+	"net/http"
+	"net/url"
+	"slices"
 	"strings"
 
 	Lyrics "github.com/rhnvrm/lyric-api-go"
@@ -15,48 +22,110 @@ import (
 )
 
 var playlist *spotify.FullPlaylist
+var previousSongs []string
+var tmpl *template.Template
+var currentSong GameState
 
-func main() { // (w http.ResponseWriter) as input to work with html
-	getPlaylist()
-	songName, artistName := getTrack(playlist)
-
-	fmt.Printf("%s ; by %s\n\n", songName, artistName)
-	lyrics := strings.Split(getLyrics(songName, artistName), "\n")
-
-	size := 10
-	start := rand.IntN(len(lyrics) - size)
-	lyrics = lyrics[start : start+size]
-	fmt.Println(lyrics)
-
-	/* tmpl := template.Must(template.ParseFiles("../html/deaf_rhythm.html"))
-	tmpl.Execute(w, lyrics)*/
+type GameState struct {
+	songName   string
+	artistName string
+	lyrics     []string
 }
 
-func getLyrics(songName string, artistName string) string {
-	l := Lyrics.New()
-	lyrics, err := l.Search(artistName, songName)
-	for err != nil { // if no lyrics found, search for another song
-		lyrics, err = l.Search(getTrack(playlist))
+func main() {
+	tmpl = template.Must(template.ParseFiles("deaf_rhythm.html"))
+
+	getPlaylist()
+	http.HandleFunc("/", start)
+	http.HandleFunc("/guess", guessHandler)
+
+	http.ListenAndServe(":8080", nil)
+}
+
+func start(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("START")
+
+	if currentSong.songName == "" || r.URL.Query().Get("new") == "true" {
+		getTrack()
+		getLyrics()
 	}
 
-	return lyrics
+	for _, line := range currentSong.lyrics {
+		fmt.Println(line)
+	}
+	fmt.Printf("\n%s ; by %s\n\n", currentSong.songName, currentSong.artistName)
+	println("tmpl execute")
+
+	err := tmpl.Execute(w, currentSong.lyrics)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func guessHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("GUESS")
+
+	r.ParseForm()
+	guess := r.Form.Get("user-input")
+	guess = strings.TrimSpace(strings.ToLower(guess))
+	fmt.Println(guess)
+	if guess == strings.ToLower(currentSong.songName) {
+		fmt.Println("correct")
+		http.Redirect(w, r, "/?new=true", http.StatusSeeOther)
+		return
+	}
+	fmt.Println("wrong")
+	err := tmpl.Execute(w, currentSong.lyrics)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func getLyrics() {
+	fmt.Println("GET LYRICS")
+
+	l := Lyrics.New()
+	lyricsStr, err := l.Search(currentSong.songName, currentSong.artistName)
+
+	for i := 0; (err != nil || lyricsStr == "") && i < 10; i++ {
+		fmt.Println("Error getting lyrics, retrying... ", err)
+		getTrack()
+		lyricsStr, err = l.Search(currentSong.songName, currentSong.artistName)
+	}
+	if err != nil || lyricsStr == "" {
+		log.Fatal("Failed to get lyrics")
+	}
+	if strings.Contains(lyricsStr, "We do not have the lyrics for") {
+		fmt.Println("Error getting lyrics, retrying...")
+		getTrack()
+		getLyrics()
+		return
+	}
+
+	lyrics := strings.Split(lyricsStr, "\n")
+	size := 10
+	if len(lyrics) < size {
+		currentSong.lyrics = lyrics
+		return
+	}
+	start := rand.IntN(len(lyrics) - size)
+	currentSong.lyrics = lyrics[start : start+size]
 }
 
 func getPlaylist() {
-	// Spotify API setup
+	fmt.Println("GET PLAYLIST")
+
 	ctx := context.Background()
 	token := &oauth2.Token{
-		AccessToken: "BQBR27gaX294-EoNUCXFNGNEI8reGdJCFO8-ZjPh-mgAjhLgvregKr792pswdfyQxtz-466gCFBGgPqsQCAxbimPBMN8AFykFKBxhn9p1xS3Fw5TRYvh1Ao8CXmnEj0GBrnE2nhC-6I",
+		AccessToken: newToken(),
 		TokenType:   "Bearer",
 	}
 
-	// Create a Spotify client using the token
 	client := spotify.New(spotifyauth.New().Client(ctx, token))
 
-	playlistID := spotify.ID("0MSCX9tZWQmitMQsfhvZIl")                        // playlist cannot be private or made by spotify
+	playlistID := spotify.ID("6i2Qd6OpeRBAzxfscNXeWp")                        // playlist cannot be private or made by spotify
 	fields := spotify.Fields("tracks(total,items(track(name,artists(name)))") // only get nb of tracks, track name and artist name
 
-	// Get the playlist
 	var err error
 	playlist, err = client.GetPlaylist(ctx, playlistID, fields)
 	if err != nil {
@@ -64,10 +133,48 @@ func getPlaylist() {
 	}
 }
 
-func getTrack(playlist *spotify.FullPlaylist) (string, string) {
-	// get a random track
-	randomTrackIndex := rand.IntN(int(math.Min(float64(playlist.Tracks.Total), 100))) // Limit to track 100 because of Spotify API limit
-	randomTrack := playlist.Tracks.Tracks[randomTrackIndex].Track
+// get a random track
+func getTrack() {
+	fmt.Println("GET TRACK")
 
-	return randomTrack.Name, randomTrack.Artists[0].Name
+	randomTrackIndex := rand.IntN(int(math.Min(float64(playlist.Tracks.Total), 100))) // limit to track 100 because of Spotify API limit
+	randomTrack := playlist.Tracks.Tracks[randomTrackIndex].Track
+	if slices.Contains(previousSongs, randomTrack.Name) {
+		fmt.Println("song already played")
+		getTrack()
+		return
+	}
+	previousSongs = append(previousSongs, randomTrack.Name)
+	currentSong.songName = randomTrack.Name
+	currentSong.artistName = randomTrack.Artists[0].Name
+}
+
+func newToken() string {
+	fmt.Println("NEW TOKEN")
+
+	params := url.Values{}
+	params.Add("grant_type", `client_credentials`)
+	params.Add("client_id", `bb69f85b5ee84285bad7f1c28cadaf14`)
+	params.Add("client_secret", `0fac697e3ea9456793fb92c22fc7977d`)
+	body := strings.NewReader(params.Encode())
+
+	req, err := http.NewRequest(http.MethodPost, "https://accounts.spotify.com/api/token", body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer resp.Body.Close()
+
+	var result struct {
+		AccessToken string `json:"access_token"`
+		TokenType   string `json:"token_type"`
+	}
+	json.NewDecoder(resp.Body).Decode(&result)
+
+	return result.AccessToken
 }

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deaf Rhythm Game</title>
+  </head>
+
+  <body>
+    <div id="lyrics-container">{{range .}}{{.}}<br/>{{end}}</div>
+    <form method="post" action="/guess">
+      <input type="text" name="user-input" placeholder="guess the song" required autofocus/>
+      <button id="submit-button">Submit</button>
+    </form>
+  </body>
+</html>
