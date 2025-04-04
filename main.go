@@ -40,6 +40,7 @@ type Game struct {
 	Point               int
 	Players             []Player
 	AllResponses        []string
+	Cat                 []string
 	WordInput           string
 }
 
@@ -71,11 +72,11 @@ func (g *Game) Menu() {
 }
 
 func (g *Game) StartGame() {
+	g.setCategory()
 	g.SetPlayers()
 	g.SetTimer()
 	g.SetRound()
 	g.RoundPlayer()
-
 }
 
 func (g *Game) SetPlayers() {
@@ -93,7 +94,6 @@ func (g *Game) SetPlayers() {
 }
 
 func (g *Game) RoundPlayer() string {
-	cat := []string{"Album", "Artist", "MusicGroup", "Song", "MusicalGenre"}
 
 	Time := make(chan bool)
 	Times := Time
@@ -117,7 +117,7 @@ func (g *Game) RoundPlayer() string {
 				fmt.Println("---------------------")
 				fmt.Println("Player", i+1, ":", g.Players[i].Name)
 
-				for _, category := range cat {
+				for _, category := range g.Cat {
 					fmt.Println("---------------------")
 					fmt.Println("Category:", category)
 					fmt.Println("Enter a word that starts with the letter", g.RandomLetter)
@@ -140,7 +140,6 @@ func (g *Game) RoundPlayer() string {
 
 		<-Times
 		println("Finish")
-		println(g.Point)
 
 	}
 	return "finish"
@@ -176,9 +175,8 @@ func (g *Game) RandomLetterFunc() string {
 
 // Check first letter
 func (g *Game) CheckFirstLetter() bool {
-
+	g.Point++
 	if strings.ToUpper(string(rune(g.WordInput[0]))) == strings.ToUpper(g.RandomLetter) {
-		g.Point++
 		fmt.Println("bravo")
 		return true
 	} else {
@@ -204,5 +202,18 @@ func (g *Game) SetRound() {
 	if g.Round <= 0 {
 		fmt.Println("not enough rounds")
 		g.SetRound()
+	}
+}
+
+func (g *Game) setCategory() {
+	fmt.Println("Which category would you like to add?")
+	var NumberOfCategory int
+	_, _ = fmt.Scanln(&NumberOfCategory)
+	var NewCat string
+
+	for i := 1; i <= NumberOfCategory; i++ {
+		fmt.Println(i, "new Category :")
+		_, _ = fmt.Scanln(&NewCat)
+		g.Cat = append(g.Cat, NewCat)
 	}
 }
