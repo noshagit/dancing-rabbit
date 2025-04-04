@@ -4,13 +4,15 @@ import (
 	"fmt"
 	"math/rand"
 	"strings"
+	"time"
 )
 
 // Todo: Add a timer
 // Todo: Add a score table
 // Todo: Name condition
-// Todo: Add a condition to check if the word is already used
 // Todo: Add score system
+// Todo: Add a condition to check if the word is already used
+// Todo: Error system
 
 // Struct Categories
 type Categories struct {
@@ -23,9 +25,10 @@ type Categories struct {
 
 // Struct Player
 type Player struct {
-	Name  string
-	Score int
-	Vote  int
+	Name      string
+	Score     int
+	Vote      int
+	Responses map[string]string
 }
 
 // Struct of the Game
@@ -34,15 +37,19 @@ type Game struct {
 	Round               int      // Round of the game
 	LetterAlreadyChoose []string // Letter already choose by the computer
 	Timer               int      // Timer of the game
+	Point               int
+	Players             []Player
+	AllResponses        []string
+	WordInput           string
 }
 
 // Function main
 func main() {
 	game := Game{}
+
 	game.Menu()
 }
 
-// Menu
 func (g *Game) Menu() {
 	fmt.Println("--- Welcome to the Game ---")
 	fmt.Println("1. Start the game")
@@ -63,28 +70,86 @@ func (g *Game) Menu() {
 	}
 }
 
-// Start the game
 func (g *Game) StartGame() {
+	g.SetPlayers()
+	g.SetTimer()
+	g.SetRound()
+	g.RoundPlayer()
 
-	// Random letter
-	letter := game.RandomLetterFunc()
-	println(letter)
-
-	// Check first letter
-	result := game.CheckFirstLetter(game.UserInput())
-	println(result)
 }
 
-// User Input (temporary)
-func (g *Game) UserInput() string {
-	var input string
-	println("Enter a word")
-	_, _ = fmt.Scanln(&input)
-	return input
+func (g *Game) SetPlayers() {
+	println("Enter a number of players")
+	var NumberOfPlayers int
+	_, _ = fmt.Scanln(&NumberOfPlayers)
+
+	for i := 0; i < NumberOfPlayers; i++ {
+		println("Enter the name of the player")
+		var PlayerName string
+		_, _ = fmt.Scanln(&PlayerName)
+
+		g.Players = append(g.Players, Player{Name: PlayerName, Responses: make(map[string]string)})
+	}
+}
+
+func (g *Game) RoundPlayer() string {
+	cat := []string{"Album", "Artist", "MusicGroup", "Song", "MusicalGenre"}
+
+	Time := make(chan bool)
+	Times := Time
+
+	for g.Round > 0 {
+
+		letter := g.RandomLetterFunc()
+		println("Letter chosen:", letter)
+
+		go func() {
+			time.Sleep(time.Duration(g.Timer) * time.Second)
+			g.Round--
+			Time <- true
+			if g.Round < 0 {
+				Times <- true
+			}
+		}()
+
+		go func() {
+			for i := 0; i < len(g.Players); i++ {
+				fmt.Println("---------------------")
+				fmt.Println("Player", i+1, ":", g.Players[i].Name)
+
+				for _, category := range cat {
+					fmt.Println("---------------------")
+					fmt.Println("Category:", category)
+					fmt.Println("Enter a word that starts with the letter", g.RandomLetter)
+					fmt.Println("Enter your word:")
+
+					_, _ = fmt.Scanln(&g.WordInput)
+					g.Players[i].Responses[category] = g.WordInput
+					g.AllResponses = append(g.AllResponses, g.WordInput)
+					g.CheckFirstLetter()
+
+				}
+				if g.Round >= 0 {
+					g.Round--
+					Times <- true
+				}
+
+				<-Time
+			}
+		}()
+
+		<-Times
+		println("Finish")
+		println(g.Point)
+
+	}
+	return "finish"
 }
 
 // Random letter
 func (g *Game) RandomLetterFunc() string {
+	rand.NewSource(time.Now().UnixNano())
+
 	for {
 		g.RandomLetter = string(rune(rand.Intn(26) + 65))
 
@@ -113,10 +178,10 @@ func (g *Game) RandomLetterFunc() string {
 func (g *Game) CheckFirstLetter() bool {
 
 	if strings.ToUpper(string(rune(g.WordInput[0]))) == strings.ToUpper(g.RandomLetter) {
+		g.Point++
 		fmt.Println("bravo")
 		return true
 	} else {
-		fmt.Println("ca commence pas part ca")
 		return false
 	}
 
