@@ -195,10 +195,6 @@ func (g *Game) SetTimer() {
 		fmt.Println("The time must be over 0 seconds, otherwise the game will not start.")
 		g.SetTimer()
 	}
-
-	if g.Timer > 0 {
-		g.Timer = g.Timer
-	}
 }
 
 func (g *Game) SetRound() {
@@ -208,9 +204,5 @@ func (g *Game) SetRound() {
 	if g.Round <= 0 {
 		fmt.Println("not enough rounds")
 		g.SetRound()
-	}
-
-	if g.Round > 0 {
-		g.Round = g.Round
 	}
 }
