@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    font-family: 'Press Start 2P', monospace;
+    background-color: #8174A0;
+    color: #433878;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.top-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    width: 100%;
+    max-width: 100%;
+    z-index: 2;
+}
+
+.button {
+    background-color: #A888B5;
+    color: #433878;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border: none;
+}
+
+.button:hover {
+    background-color: #ad92b8;
+    animation: buttonAnim 0.2s ease-out;
+}
+
+.timer {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    width: 100%;
+    max-width: 100%;
+    padding-right: 250px;
+}
+
+.lyrics-shadow {
+    display: none;
+}
+
+.lyrics-display {
+    background-color: #EFB6C8;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    height: 300px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2;
+}
+
+.lyrics-line {
+    font-size: 1em;
+    margin: 5px 0;
+}
+
+.input-bar {
+    background-color: #A888B5;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    width: 80%;
+    max-width: 500px;
+}
+
+input {
+    background-color: transparent;
+    border: none;
+    color: #433878;
+    text-align: center;
+    font-size: 1.2em;
+    width: 100%;
+    font-family: 'Press Start 2P', monospace;
+}
+
+input::placeholder {
+    color: #38344d;
+    opacity: 0.7;
+}
+
+.validate-button {
+    margin-top: 20px;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.players-status {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    background-color: #A888B5;
+    color: #433878;
+    padding: 20px;
+    border-radius: 10px;
+    width: 220px;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 3;
+}
+
+.players-status h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+#players-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#players-list li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.status {
+    font-size: 0.9em;
+}
+
+.not-finished {
+    color: red;
+}
+
+.finished {
+    color: green;
+}
+
+.round-counter {
+    font-size: 1.8em;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #EFB6C8;
+    background-color: #433878;
+    padding: 10px 30px;
+    border-radius: 20px;
+    z-index: 2;
+}
+
+.players-status {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    background-color: #A888B5;
+    color: #433878;
+    padding: 20px;
+    border-radius: 20px;
+    width: 280px; /* Plus large */
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    z-index: 3;
+}
+
+.players-status h2 {
+    font-size: 1.6em;
+    margin-bottom: 20px;
+}
+
+#players-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#players-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    word-break: break-word;
+    padding: 8px 0;
+    border-bottom: 1px dashed #433878;
+    font-size: 1em;
+}
+
+.status {
+    font-size: 0.8em;
+    margin-left: 10px;
+    text-align: right;
+}
+
+.not-finished {
+    color: red;
+}
+
+.finished {
+    color: green;
+}
+
+@keyframes buttonAnim {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
