@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petit Bac</title>
+    <link rel="stylesheet" href="petit-bac.css">
+</head>
+<body>
+    <div class="top-buttons">
+        <a href="/main-menu/menu.html" id="leave-button" class="button">Quitter</a>
+    </div>
+
+    <div class="round-counter">1/10</div>
+
+    <div class="main-content">
+        <div class="left-panel">
+            <div class="current-letter">Lettre : T</div>
+
+            <!-- Ajout du wrapper avec du gap -->
+            <div class="choices-wrapper">
+                <div class="choice">
+                    <div class="choice-label">Choix 1</div>
+                    <input type="text" placeholder="Entrez votre réponse...">
+                </div>
+                <div class="choice">
+                    <div class="choice-label">Choix 2</div>
+                    <input type="text" placeholder="Entrez votre réponse...">
+                </div>
+                <div class="choice">
+                    <div class="choice-label">Choix 3</div>
+                    <input type="text" placeholder="Entrez votre réponse...">
+                </div>
+                <div class="choice">
+                    <div class="choice-label">Choix 4</div>
+                    <input type="text" placeholder="Entrez votre réponse...">
+                </div>
+            </div>
+
+            <button class="button validate-button" id="validate-button">Valider</button>
+        </div>
+
+        <div class="players-status">
+            <h2>Players</h2>
+            <ul id="players-list"></ul>
+        </div>
+    </div>
+
+    <script src="petit-bac.js"></script>
+</body>
+</html>
