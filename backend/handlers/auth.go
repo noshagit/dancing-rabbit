@@ -33,9 +33,9 @@ func LoginHandler(router *mux.Router) {
 		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/connexion/connexion.js")
 	}).Methods("GET")
 
-	router.HandleFunc("/login/login.html", func(w http.ResponseWriter, r *http.Request) {
+	router.HandleFunc("/connexion/connexion.html", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
-			http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+			http.Error(w, "méthode de requête invalide", http.StatusMethodNotAllowed)
 			return
 		}
 
@@ -44,8 +44,8 @@ func LoginHandler(router *mux.Router) {
 
 		db, err := sql.Open("sqlite3", "/home/ilian/dancing-rabbit/backend/database/dancing.db")
 		if err != nil {
-			http.Error(w, "Database connection error", http.StatusInternalServerError)
-			log.Println("Database connection error:", err)
+			http.Error(w, "Erreur de connexion à la base de données", http.StatusInternalServerError)
+			log.Println("Erreur de connexion à la base de données:", err)
 			return
 		}
 		defer db.Close()
@@ -55,10 +55,10 @@ func LoginHandler(router *mux.Router) {
 		err = row.Scan(&storedHashedPassword)
 		if err != nil {
 			if err == sql.ErrNoRows {
-				http.Error(w, "Invalid email or password", http.StatusUnauthorized)
+				http.Error(w, "Email ou mot de passe invalide", http.StatusUnauthorized)
 			} else {
-				http.Error(w, "Database query error", http.StatusInternalServerError)
-				log.Println("Database query error:", err)
+				http.Error(w, "Erreur lors de la requête à la base de données", http.StatusInternalServerError)
+				log.Println("Erreur lors de la requête à la base de données:", err)
 			}
 			return
 		}
@@ -83,7 +83,7 @@ func LoginHandler(router *mux.Router) {
 
 			http.Redirect(w, r, "/main-menu/menu.html", http.StatusSeeOther)
 		} else {
-			http.Error(w, "Invalid email or password", http.StatusUnauthorized)
+			http.Error(w, "Mot de passe ou email invalide", http.StatusUnauthorized)
 		}
 	}).Methods("POST")
 }
