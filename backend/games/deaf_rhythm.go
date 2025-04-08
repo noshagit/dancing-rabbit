@@ -84,32 +84,27 @@ func guessHandler(w http.ResponseWriter, r *http.Request) {
 func getLyrics() {
 	fmt.Println("GET LYRICS")
 
-	l := Lyrics.New()
-	lyricsStr, err := l.Search(currentSong.songName, currentSong.artistName)
+	for i := 0; i < 10; i++ {
+		l := Lyrics.New()
+		lyricsStr, err := l.Search(currentSong.artistName, currentSong.songName)
 
-	for i := 0; (err != nil || lyricsStr == "") && i < 10; i++ {
-		fmt.Println("Error getting lyrics, retrying... ", err)
+		if err == nil && lyricsStr != "" && !strings.Contains(lyricsStr, "We do not have the lyrics for") {
+			lyrics := strings.Split(lyricsStr, "\n")
+			size := 10
+			if len(lyrics) < size {
+				currentSong.lyrics = lyrics
+				return
+			}
+			start := rand.IntN(len(lyrics) - size)
+			currentSong.lyrics = lyrics[start : start+size]
+			return
+		}
+
+		fmt.Println("Error getting lyrics, trying a different song...")
 		getTrack()
-		lyricsStr, err = l.Search(currentSong.songName, currentSong.artistName)
-	}
-	if err != nil || lyricsStr == "" {
-		log.Fatal("Failed to get lyrics")
-	}
-	if strings.Contains(lyricsStr, "We do not have the lyrics for") {
-		fmt.Println("Error getting lyrics, retrying...")
-		getTrack()
-		getLyrics()
-		return
 	}
 
-	lyrics := strings.Split(lyricsStr, "\n")
-	size := 10
-	if len(lyrics) < size {
-		currentSong.lyrics = lyrics
-		return
-	}
-	start := rand.IntN(len(lyrics) - size)
-	currentSong.lyrics = lyrics[start : start+size]
+	log.Fatal("Failed to get lyrics after multiple attempts")
 }
 
 func getPlaylist() {
