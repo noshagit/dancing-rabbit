@@ -6,4 +6,5 @@ require (
 	github.com/gorilla/mux v1.8.1
 	github.com/mattn/go-sqlite3 v1.14.24
 	golang.org/x/crypto v0.36.0
+	github.com/google/uuid v1.6.0
 )
