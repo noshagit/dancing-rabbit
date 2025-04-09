@@ -35,12 +35,21 @@ func LoginHandler(router *mux.Router) {
 
 	router.HandleFunc("/connexion/connexion.html", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
-			http.Error(w, "méthode de requête invalide", http.StatusMethodNotAllowed)
+			http.Error(w, "Méthode de requête invalide", http.StatusMethodNotAllowed)
 			return
 		}
 
-		email := r.FormValue("email")
-		password := r.FormValue("password")
+		var credentials struct {
+			Email    string `json:"email"`
+			Password string `json:"password"`
+		}
+
+		err := json.NewDecoder(r.Body).Decode(&credentials)
+		if err != nil {
+			http.Error(w, "Erreur de décodage JSON", http.StatusBadRequest)
+			log.Println("Erreur de décodage JSON:", err)
+			return
+		}
 
 		db, err := sql.Open("sqlite3", "/home/ilian/dancing-rabbit/backend/database/dancing.db")
 		if err != nil {
@@ -51,7 +60,7 @@ func LoginHandler(router *mux.Router) {
 		defer db.Close()
 
 		var storedHashedPassword string
-		row := db.QueryRow("SELECT password FROM users WHERE email = ?", email)
+		row := db.QueryRow("SELECT password FROM users WHERE email = ?", credentials.Email)
 		err = row.Scan(&storedHashedPassword)
 		if err != nil {
 			if err == sql.ErrNoRows {
@@ -63,25 +72,26 @@ func LoginHandler(router *mux.Router) {
 			return
 		}
 
-		if CheckPassword(password, storedHashedPassword) {
+		if bcrypt.CompareHashAndPassword([]byte(storedHashedPassword), []byte(credentials.Password)) == nil {
 			sessionToken := uuid.New().String()
 
-			_, err := db.Exec("INSERT INTO sessions (token, email) VALUES (?, ?)", sessionToken, email)
+			_, err := db.Exec("INSERT INTO sessions (token, email) VALUES (?, ?)", sessionToken, credentials.Email)
 			if err != nil {
 				http.Error(w, "Erreur lors de la création de la session", http.StatusInternalServerError)
 				log.Println("Erreur insertion session:", err)
 				return
 			}
 
-			http.SetCookie(w, &http.Cookie{ // création du cookie
+			http.SetCookie(w, &http.Cookie{
 				Name:     "session_token",
 				Value:    sessionToken,
 				Path:     "/",
 				HttpOnly: true,
-				MaxAge:   3600,
+				MaxAge:   86400,
 			})
 
-			http.Redirect(w, r, "/main-menu/menu.html", http.StatusSeeOther)
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte("Connexion réussie"))
 		} else {
 			http.Error(w, "Mot de passe ou email invalide", http.StatusUnauthorized)
 		}
