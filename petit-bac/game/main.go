@@ -5,6 +5,8 @@ import (
 	"math/rand"
 	"strings"
 	"time"
+	"html/template"
+	"net/http"
 )
 
 // Struct Categories
@@ -37,32 +39,32 @@ type Game struct {
 	WordInput           string
 }
 
+
 // Function main
 func main() {
-
-
+	game := Game{}
+	game.StartServeur()
 }
 
-func (g *Game) Menu() {
-	fmt.Println("--- Welcome to the Game ---")
-	fmt.Println("1. Start the game")
-	fmt.Println("2. Exit")
-	fmt.Println("---------------------------")
+func (g *Game) StartServeur() {
+	http.HandleFunc("/", g.Page)
+	http.ListenAndServe(":8080", nil)
+}
 
-	var choice int
-	_, _ = fmt.Scanln(&choice)
-	switch choice {
-	case 1:
-	case 2:
-		fmt.Println("Goodbye!")
+func (g *Game) Page(w http.ResponseWriter, r *http.Request) {
+	g.RandomLetterFunc()
+
+	tmpl, err := template.New("game").ParseFiles("petit-bac.html")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
-	default:
-		fmt.Println("Invalid choice")
-		g.Menu()
+	}
+
+	err = tmpl.Execute(w, g)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
-
-
 
 func (g *Game) SetPlayers() {
 	println("Enter a number of players")
@@ -134,8 +136,10 @@ func (g *Game) RoundPlayer() string {
 func (g *Game) RandomLetterFunc() string {
 	rand.NewSource(time.Now().UnixNano())
 
+
 	for {
 		g.RandomLetter = string(rune(rand.Intn(26) + 65))
+		fmt.Println("Lettre :", g.RandomLetter) 
 
 		alreadyChoosen := false
 		for _, letter := range g.LetterAlreadyChoose {
@@ -171,6 +175,7 @@ func (g *Game) CheckFirstLetter() bool {
 }
 
 func (g *Game) SetTimer() {
+
 	fmt.Println("how long did the tour last (in secondes)?")
 	_, _ = fmt.Scanln(&g.Timer)
 
