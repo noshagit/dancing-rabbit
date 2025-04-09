@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    font-family: 'Press Start 2P', monospace;
+    background-color: #8174A0;
+    color: #433878;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-container {
+    position: relative;
+}
+
+.welcome-message h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.welcome-message p {
+    font-size: 1.5em;
+    margin-bottom: 50px;
+}
+
+.start-button {
+    background-color: #A888B5;
+    color: #433878;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-size: 1.5em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.start-button:hover {
+    background-color: #ad92b8;
+    animation: buttonAnim 0.2s ease-out;
+}
+
+@keyframes buttonAnim {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.welcome-message {
+    z-index: 999;
+}
+
+footer {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #A888B5;
+    color: #433878;
+    font-weight: bold;
+    text-align: center;
+}
+
+#bunnyImage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    opacity: 0;
+    transition: all 0.4s ease-out;
+}

@@ -7,13 +7,6 @@ import (
 	"time"
 )
 
-// Todo: Add a timer
-// Todo: Add a score table
-// Todo: Name condition
-// Todo: Add score system
-// Todo: Add a condition to check if the word is already used
-// Todo: Error system
-
 // Struct Categories
 type Categories struct {
 	Album        string
@@ -46,9 +39,8 @@ type Game struct {
 
 // Function main
 func main() {
-	game := Game{}
 
-	game.Menu()
+
 }
 
 func (g *Game) Menu() {
@@ -61,7 +53,6 @@ func (g *Game) Menu() {
 	_, _ = fmt.Scanln(&choice)
 	switch choice {
 	case 1:
-		g.StartGame()
 	case 2:
 		fmt.Println("Goodbye!")
 		return
@@ -71,13 +62,7 @@ func (g *Game) Menu() {
 	}
 }
 
-func (g *Game) StartGame() {
-	g.setCategory()
-	g.SetPlayers()
-	g.SetTimer()
-	g.SetRound()
-	g.RoundPlayer()
-}
+
 
 func (g *Game) SetPlayers() {
 	println("Enter a number of players")

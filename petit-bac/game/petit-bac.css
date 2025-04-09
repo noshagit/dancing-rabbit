@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', monospace;
+    background-color: #8174A0;
+    color: #433878;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-buttons {
+    display: flex;
+    justify-content: flex-start;
+    padding: 20px;
+    width: 100%;
+}
+
+.button {
+    background-color: #A888B5;
+    color: #433878;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: #ad92b8;
+    animation: buttonAnim 0.2s ease-out;
+}
+
+.round-counter {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #EFB6C8;
+    background-color: #433878;
+    padding: 10px 20px;
+    border-radius: 20px;
+    align-self: center;
+    margin-bottom: 10px;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.left-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.current-letter {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #433878;
+    background-color: #EFB6C8;
+    padding: 10px;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.choice-container {
+    display: flex;
+    align-items: center;
+    background-color: #EFB6C8;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 25px 0;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.choice {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.choice-label {
+    background-color: #EFB6C8;
+    color: #433878;
+    padding: 12px 25px;
+    border-radius: 20px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1em;
+    margin-right: 30px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.choice-input {
+    flex: 1;
+    background-color: #fff;
+    border: 2px solid #A888B5;
+    border-radius: 15px;
+    padding: 10px 15px;
+    font-size: 1em;
+    font-family: 'Press Start 2P', monospace;
+    color: #433878;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.choice-input::placeholder {
+    color: #A888B5;
+    opacity: 0.6;
+}
+
+.choice-input:focus {
+    border-color: #433878;
+}
+
+input {
+    background-color: #A888B5;
+    border: none;
+    color: #433878;
+    font-size: 1em;
+    padding: 10px;
+    border-radius: 10px;
+    flex: 1;
+    font-family: 'Press Start 2P', monospace;
+}
+
+input::placeholder {
+    color: #38344d;
+    opacity: 0.7;
+}
+
+.validate-button {
+    margin-top: 20px;
+    align-self: center;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.players-status {
+    background-color: #A888B5;
+    color: #433878;
+    padding: 20px;
+    border-radius: 20px;
+    width: 280px;
+    max-height: fit-content;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    flex-shrink: 0;
+}
+
+#players-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.players-status h2 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+#players-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed #433878;
+    font-size: 0.9em;
+}
+
+.status {
+    font-size: 0.8em;
+}
+
+.not-finished {
+    color: red;
+}
+
+.finished {
+    color: green;
+}
+
+@keyframes buttonAnim {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .players-status {
+        width: 90%;
+        margin-top: 20px;
+    }
+
+    .choice {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .choice-label {
+        text-align: center;
+    }
+}
+
+.choices-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    max-width: 700px;
+    padding: 20px;
+}
