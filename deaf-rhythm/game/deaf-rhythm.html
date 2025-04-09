@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deaf Rhythm</title>
+    <link rel="stylesheet" href="deaf-rhythm.css">
+</head>
+<body>
+    <div class="top-buttons">
+        <a href="/main-menu/menu.html" id="leave-button" class="button">Quitter</a>
+        <span class="timer">00:30</span>
+    </div>
+
+    <div class="round-counter">1/10</div>
+
+    <div class="container">
+
+        <div class="lyrics-display" id="lyrics-display">
+        </div>
+
+        <div class="input-bar">
+            <input type="text" id="song-title" placeholder="Devinez le titre...">
+        </div>
+
+        <button class="button validate-button" id="validate-button">Valider</button>
+    </div>
+
+    <div class="players-status">
+        <h2>Players</h2>
+        <ul id="players-list"></ul>
+    </div>
+    
+    <script src="deaf-rhythm.js"></script>
+</body>
+</html>

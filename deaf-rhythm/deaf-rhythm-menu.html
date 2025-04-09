@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deaf Rhythm - Accueil</title>
+    <link rel="stylesheet" href="deaf-rhythm-menu.css">
+</head>
+<body>
+    <div class="top-buttons">
+        <a href="/main-menu/menu.html" class="button">Retour</a>
+        <button class="button" id="rules-button">Règlement</button>
+    </div>
+
+    <div class="container">
+        <div class="config-section">
+            <div class="config-card">
+                <h1>DEAF RHYTHM<br><br>Configuration</h1>
+                <div class="buttons-container">
+                    <button class="button" id="reset-button">Reset</button>
+                    <button class="button" id="easy-button">Easy</button>
+                    <button class="button" id="hard-button">Hard</button>
+                </div>
+            </div>
+
+            <div class="config-card">
+                <h2>NOMBRE DE TOURS</h2>
+                <div class="input-bar">
+                    <input type="text" id="rounds-input" placeholder="Ex: 5">
+                </div>
+            </div>
+            
+            <div class="config-card">
+                <h2>TEMPS PAR MANCHE</h2>
+                <div class="input-bar">
+                    <div class="time-selector">
+                        <button id="time-arrow">▶</button>
+                        <span id="selected-time">01:00</span>
+                    </div>
+                </div>
+                <div class="time-options" id="time-options">
+                    <button class="time-button">00:15</button>
+                    <button class="time-button">00:30</button>
+                    <button class="time-button">01:00</button>
+                    <button class="time-button">02:00</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="players-section">
+            <div class="players-card">
+                <h2>JOUEURS</h2>
+                <ul id="players-list">
+                </ul>
+                <a href="/deaf-rhythm/game/deaf-rhythm.html" class="play-button">Play</a>
+            </div>
+            <div class="bunny-ears">
+                <div class="bunny-ear-left">
+                    <div class="bunny-ear-inner-left"></div>
+                </div>
+                <div class="bunny-ear-right">
+                    <div class="bunny-ear-inner-right"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup" id="rules-popup">
+        <div class="popup-content">
+            <h2>Règlement</h2>
+            <p>Les paroles d'une chanson vont s'afficher, à vous de trouver la chanson correspondate.</p>
+            <p>Une réponse juste vous donne des points selon le temps écoulé.</p>
+            <p>Les points sont doublés chaque tour</p>
+            <p>Fin du tour lorsque le timer arrive à 0, ou lorsque tous les joueurs ont répondus.</p>
+            <button id="close-popup">Fermer</button>
+        </div>
+    </div>
+
+    <script src="deaf-rhythm-menu.js"></script>
+</body>
+</html>

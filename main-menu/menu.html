@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dancing Rabbit</title>
+    <link rel="stylesheet" href="menu.css">
+</head>
+<body>
+    <header>
+        <button class="auth-button" onclick="window.location.href='/connexion/connexion.html'">Connexion</button>
+        <button class="auth-button" onclick="window.location.href='/inscription/inscription.html'">Inscription</button>
+        <button class="auth-button" onclick="window.location.href='/profil/profil.html'">Profil</button>
+    </header>
+
+    <main>
+        <h1>Choisissez votre jeu</h1>
+        <div class="menu-buttons">
+            <div class="menu-item">
+                <img src="/images/petit-bac.png" alt="Petit Bac" class="game-image">
+                <button class="game-button" onclick="window.location.href='/petit-bac/petit-bac-menu.html'">Petit Bac</button>
+                <button class="info-button" onclick="showPopup('Petit Bac', 'Dans Petit Bac, chaque manche commence par une lettre aléatoire. Les joueurs doivent trouver un mot pour chaque catégorie, comme Artiste ou Album, commençant par cette lettre. Les points sont attribués selon l’unicité des réponses : 0 point pour une mauvaise réponse, 1 point pour une réponse partagée, et 2 points pour une réponse unique. Le jeu se termine après le nombre de manches choisi, et un tableau des scores affiche les résultats finaux.')">?</button>
+            </div>
+            <div class="menu-item">
+                <img src="/images/deaf-rhythm.png" alt="Deaf Rhythm" class="game-image">
+                <button class="game-button" onclick="window.location.href='/deaf-rhythm/deaf-rhythm-menu.html'">Deaf Rhythm</button>
+                <button class="info-button" onclick="showPopup('Deaf Rhythm', 'Dans Deaf Rhythm, un extrait des paroles d’une chanson est affiché et un minuteur (par exemple 1 minute) commence. Les points sont attribués de manière décroissante selon la rapidité des réponses des joueurs, et les points sont doublés à chaque tour. Le tour se termine lorsque le minuteur arrive à 0 ou lorsque tous les joueurs ont répondu. Une fois tous les tours joués, le jeu se termine avec un classement final affichant les points accumulés par chaque joueur.')">?</button>
+            </div>
+            <div class="menu-item">
+                <img src="/images/blind-test.png" alt="Blind Test" class="game-image">
+                <button class="game-button" onclick="window.location.href='/blind-test/blind-test-menu.html'">Blind Test</button>
+                <button class="info-button" onclick="showPopup('Blind Test', 'Dans Blind Test, une musique est choisie aléatoirement et le joueur peut ajuster la durée minimale des extraits audio. Le jeu propose différents modes : Ralenti, Accéléré, Inversé et Normal. Les points sont attribués de manière décroissante en fonction du temps écoulé avant la réponse. La partie se termine après un nombre de tours défini par les joueurs, avec un classement final basé sur les points et un affichage spécial pour le gagnant.')">?</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        Auteurs : Ilian, Quentin, Natïha, Corentin, Nathaël
+    </footer>
+
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <h2 id="popup-title"></h2>
+            <p id="popup-text"></p>
+            <button onclick="closePopup()">Fermer</button>
+        </div>
+    </div>
+
+    <div class="bunny-container">
+        <div class="bunny">
+            <div class="ear left"></div>
+            <div class="ear right"></div>
+            <div class="eye left"></div>
+            <div class="eye right"></div>
+        </div>
+    </div>     
+
+
+    <script src="menu.js"></script>
+</body>
+</html>

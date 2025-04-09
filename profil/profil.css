@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    font-family: 'Press Start 2P', monospace;
+    background-color: #8174A0;
+    color: #433878;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    gap: 10px;
+}
+
+.auth-button {
+    background-color: #A888B5;
+    color: #433878;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.auth-button:hover {
+    background-color: #ad92b8;
+    animation: buttonAnim 0.2s ease-out;
+}
+
+h1 {
+    font-size: 2em;
+    margin-top: 50px;
+}
+
+footer {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #A888B5;
+    color: #433878;
+    font-weight: bold;
+    text-align: center;
+}
+
+.bunny-container {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bunny {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 50%;
+    position: relative;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bunny .ear {
+    position: absolute;
+    width: 25px;
+    height: 50px;
+    background: white;
+    border-radius: 50px 50px 0 0;
+    top: -40px;
+}
+
+.bunny .ear.left {
+    left: 5px;
+    transform: rotate(-20deg);
+}
+
+.bunny .ear.right {
+    right: 5px;
+    transform: rotate(20deg);
+}
+
+.bunny .ear::before {
+    content: "";
+    position: absolute;
+    width: 13px;
+    height: 38px;
+    background: #FFC0CB;
+    border-radius: 50px 50px 0 0;
+    left: 6px;
+    top: 5px;
+}
+
+.bunny .eye {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: black;
+    border-radius: 50%;
+    top: 30px;
+}
+
+.bunny .eye.left {
+    left: 20px;
+}
+
+.bunny .eye.right {
+    right: 20px;
+}
+
+@keyframes buttonAnim {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.profile-card {
+    background-color: #EFB6C8;
+    border-radius: 20px;
+    padding: 30px 20px;
+    width: 320px;
+    margin: 50px auto;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #A888B5;
+    margin-bottom: 10px;
+}
+
+.info-box {
+    background-color: #A888B5;
+    border-radius: 25px;
+    padding: 15px;
+    width: 90%;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    font-size: 0.8em;
+}
