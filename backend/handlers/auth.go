@@ -190,7 +190,6 @@ func ProfileHandler(router *mux.Router) {
 
 		db, err := sql.Open("sqlite3", "/home/ilian/dancing-rabbit/backend/database/dancing.db")
 		if err != nil {
-			log.Println("Erreur de connexion à la base de données:", err) // Log de l'erreur
 			http.Error(w, "Erreur de connexion à la base de données", http.StatusInternalServerError)
 			return
 		}
