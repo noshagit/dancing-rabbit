@@ -14,19 +14,26 @@ import (
 	"net/url"
 	"slices"
 	"strings"
+	"time"
 
+	"github.com/gorilla/mux"
 	Lyrics "github.com/rhnvrm/lyric-api-go"
 	"github.com/zmb3/spotify/v2"
 	spotifyauth "github.com/zmb3/spotify/v2/auth"
 	"golang.org/x/oauth2"
 )
 
-var playlist *spotify.FullPlaylist
-var previousSongs []string
-var tmpl *template.Template
-var currentSong GameState
+var (
+	playlist      *spotify.FullPlaylist
+	previousSongs []string
+	playedSongs    []song
+	tmpl          *template.Template
+	currentSong   song
+	playerGuesses map[string]string
+	songTimer     *time.Timer
+)
 
-type GameState struct {
+type song struct {
 	songName   string
 	artistName string
 	lyrics     []string
@@ -34,20 +41,30 @@ type GameState struct {
 
 func main() {
 	tmpl = template.Must(template.ParseFiles("deaf_rhythm.html"))
+	playerGuesses = make(map[string]string)
 
 	getPlaylist()
-	http.HandleFunc("/", start)
-	http.HandleFunc("/guess", guessHandler)
 
-	http.ListenAndServe(":8080", nil)
+	r := mux.NewRouter()
+
+	r.HandleFunc("/", start).Methods("GET")
+	r.HandleFunc("/guess", guessHandler).Methods("POST")
+
+	fmt.Println("Server started on :8080")
+	http.ListenAndServe(":8080", r)
 }
 
 func start(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("START")
 
-	if currentSong.songName == "" || r.URL.Query().Get("new") == "true" {
+	if len(playedSongs) == 10 {
+		// TODO end game and vote
+	}
+
+	if currentSong.songName == "" {
 		getTrack()
 		getLyrics()
+		resetSongTimer(w, r)
 	}
 
 	for _, line := range currentSong.lyrics {
@@ -69,16 +86,27 @@ func guessHandler(w http.ResponseWriter, r *http.Request) {
 	guess := r.Form.Get("user-input")
 	guess = strings.TrimSpace(strings.ToLower(guess))
 	fmt.Println(guess)
-	if guess == strings.ToLower(currentSong.songName) {
-		fmt.Println("correct")
-		http.Redirect(w, r, "/?new=true", http.StatusSeeOther)
-		return
+	playerGuesses[currentSong.songName] = guess
+
+	currentSong.songName = ""
+
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
+
+func resetSongTimer(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("RESET TIMER")
+
+	if songTimer != nil {
+		songTimer.Stop()
 	}
-	fmt.Println("wrong")
-	err := tmpl.Execute(w, currentSong.lyrics)
-	if err != nil {
-		log.Fatal(err)
-	}
+
+	songTimer = time.AfterFunc(10*time.Second, func() {
+		fmt.Println("timer expired")
+		playerGuesses[currentSong.songName] = ""
+		getTrack()
+		getLyrics()
+		// TODO refresh page to show the new lyrics
+	})
 }
 
 func getLyrics() {
@@ -97,6 +125,7 @@ func getLyrics() {
 			}
 			start := rand.IntN(len(lyrics) - size)
 			currentSong.lyrics = lyrics[start : start+size]
+			playedSongs = append(playedSongs, currentSong)
 			return
 		}
 
@@ -128,7 +157,6 @@ func getPlaylist() {
 	}
 }
 
-// get a random track
 func getTrack() {
 	fmt.Println("GET TRACK")
 

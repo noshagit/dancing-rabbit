@@ -12,6 +12,7 @@ require (
 	github.com/PuerkitoBio/goquery v1.4.1 // indirect
 	github.com/andybalholm/cascadia v1.0.0 // indirect
 	github.com/gopherjs/gopherjs v1.17.2 // indirect
+	github.com/gorilla/mux v1.8.1
 	github.com/gosimple/slug v1.2.0 // indirect
 	github.com/rainycape/unidecode v0.0.0-20150907023854-cb7f23ec59be // indirect
 	golang.org/x/net v0.23.0 // indirect
