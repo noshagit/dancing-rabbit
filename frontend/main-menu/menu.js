@@ -14,6 +14,7 @@ const buttons = [
         { text: "Connexion", url: "/connexion/connexion.html", id: "connexion-button" },
         { text: "Inscription", url: "/inscription/inscription.html", id: "inscription-button" },
         { text: "Profil", url: "/profil/profil.html", id: "profil-button" },
+        { text: "Déconnexion", url: "/main-menu/menu.html", id: "logout-button" },
 ];
 
 buttons.forEach(btn => {
@@ -38,4 +39,24 @@ if (sessionCookie) {
         document.getElementById("inscription-button").style.display = "none";
 } else {
         document.getElementById("profil-button").style.display = "none";
+        document.getElementById("logout-button").style.display = "none";
+}
+
+function logout() {
+        fetch("/logout", {
+                method: "POST",
+                credentials: "include",
+        })
+        .then(response => {
+                if (response.ok) {
+                        document.cookie = "session_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                        window.location.href = "/main-menu/menu.html";
+                } else {
+                        showPopup("Erreur", "Erreur lors de la déconnexion.");
+                }
+        })
+        .catch(error => {
+                console.error("Erreur lors de la déconnexion:", error);
+                showPopup("Erreur", "Erreur lors de la déconnexion.");
+        });
 }
