@@ -3,7 +3,6 @@ package handlers
 import (
 	"database/sql"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -83,11 +82,10 @@ func LoginHandler(router *mux.Router) {
 			}
 
 			http.SetCookie(w, &http.Cookie{
-				Name:     "session_token",
-				Value:    sessionToken,
-				Path:     "/",
-				HttpOnly: true,
-				MaxAge:   86400,
+				Name:   "session_token",
+				Value:  sessionToken,
+				Path:   "/",
+				MaxAge: 86400,
 			})
 
 			w.WriteHeader(http.StatusOK)
@@ -166,29 +164,65 @@ func RegisterHandler(router *mux.Router) {
 }
 
 func ProfileHandler(router *mux.Router) {
-	router.HandleFunc("/profil", func(w http.ResponseWriter, r *http.Request) {
+
+	router.HandleFunc("/profil/profil.html", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/profil/profil.html")
+	}).Methods("GET")
+
+	router.HandleFunc("/profil/profil.css", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/profil/profil.css")
+	}).Methods("GET")
+
+	router.HandleFunc("/profil/profil.js", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/profil/profil.js")
+	}).Methods("GET")
+
+	router.HandleFunc("/frontend/images/bunny.png", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/images/bunny.png")
+	}).Methods("GET")
+
+	router.HandleFunc("/api/get-profile", func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("session_token")
 		if err != nil {
-			http.Error(w, "Non autorisé (pas de cookie)", http.StatusUnauthorized)
+			http.Error(w, "Non authentifié", http.StatusUnauthorized)
 			return
 		}
 
 		db, err := sql.Open("sqlite3", "/home/ilian/dancing-rabbit/backend/database/dancing.db")
 		if err != nil {
-			http.Error(w, "Erreur DB", http.StatusInternalServerError)
+			log.Println("Erreur de connexion à la base de données:", err) // Log de l'erreur
+			http.Error(w, "Erreur de connexion à la base de données", http.StatusInternalServerError)
 			return
 		}
 		defer db.Close()
 
 		var email string
-		err = db.QueryRow("SELECT email FROM sessions WHERE token = ?", cookie.Value).Scan(&email)
+		row := db.QueryRow("SELECT email FROM sessions WHERE token = ?", cookie.Value)
+		err = row.Scan(&email)
 		if err != nil {
 			http.Error(w, "Session invalide", http.StatusUnauthorized)
 			return
 		}
 
-		fmt.Fprintf(w, "Bienvenue sur le profil de %s !", email)
+		var profile struct {
+			Pseudo string `json:"pseudo"`
+			Email  string `json:"email"`
+		}
+
+		row = db.QueryRow("SELECT pseudo, email FROM users WHERE email = ?", email)
+		err = row.Scan(&profile.Pseudo, &profile.Email)
+		if err != nil {
+			http.Error(w, "Erreur lors de la récupération des informations du profil", http.StatusInternalServerError)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"success": true,
+			"profile": profile,
+		})
 	}).Methods("GET")
+
 }
 
 func LogoutHandler(router *mux.Router) {
@@ -197,7 +231,11 @@ func LogoutHandler(router *mux.Router) {
 		if err == nil {
 			db, err := sql.Open("sqlite3", "/home/ilian/dancing-rabbit/backend/database/dancing.db")
 			if err == nil {
-				db.Exec("DELETE FROM sessions WHERE token = ?", cookie.Value)
+				_, err := db.Exec("DELETE FROM sessions WHERE token = ?", cookie.Value)
+				if err != nil {
+					http.Error(w, "Erreur lors de la suppression de la session", http.StatusInternalServerError)
+					log.Println("Erreur lors de la suppression de la session:", err)
+				}
 				db.Close()
 			}
 		}
@@ -210,7 +248,7 @@ func LogoutHandler(router *mux.Router) {
 			MaxAge:   -1,
 		})
 
-		fmt.Fprintln(w, "Déconnexion réussie")
+		http.Redirect(w, r, "/main-menu/menu.html", http.StatusSeeOther)
 	}).Methods("POST")
 }
 
