@@ -1,6 +1,6 @@
 module Backend
 
-go 1.24.1
+go 1.23.0
 
 require (
 	github.com/rhnvrm/lyric-api-go v0.1.4
