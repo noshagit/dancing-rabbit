@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "OEEEEEEEEEEEEEEEEE LA TEAM"
     ];
 
-    lyricsDisplay.innerHTML = lyrics.map(line => `<p class="lyrics-line">${line}</p>`).join('');
+    //lyricsDisplay.innerHTML = lyrics.map(line => `<p class="lyrics-line">${line}</p>`).join('');
 
     const players = ["Emilia", "Quentin", "Nathaël", "Ilian", "Corentin"];
 

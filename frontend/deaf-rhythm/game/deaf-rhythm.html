@@ -17,13 +17,16 @@
     <div class="container">
 
         <div class="lyrics-display" id="lyrics-display">
+            {{range .}}{{.}}<br/>{{end}}
         </div>
 
-        <div class="input-bar">
-            <input type="text" id="song-title" placeholder="Devinez le titre...">
-        </div>
-
-        <button class="button validate-button" id="validate-button">Valider</button>
+        <form method="post" action="/guess">
+            <div class="input-bar">
+                <input type="text" id="song-title" name="user-input" placeholder="Devinez le titre...">
+            </div>
+    
+            <button class="button validate-button" id="submit-button">Valider</button>
+        </form>
     </div>
 
     <div class="players-status">

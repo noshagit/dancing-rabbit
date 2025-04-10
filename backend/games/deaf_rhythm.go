@@ -40,13 +40,21 @@ type song struct {
 }
 
 func main() {
-	tmpl = template.Must(template.ParseFiles("./deaf_rhythm.html"))
+	tmpl = template.Must(template.ParseFiles("../../frontend/deaf-rhythm/game/deaf-rhythm.html"))
 	//frontend/deaf-rhythm/game/deaf-rhythm.html
 	playerGuesses = make(map[string]string)
-
 	getPlaylist()
 
 	r := mux.NewRouter()
+
+	r.HandleFunc("/deaf-rhythm.js", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/javascript")
+		http.ServeFile(w, r, "../../frontend/deaf-rhythm/game/deaf-rhythm.js")
+	})
+	r.HandleFunc("/deaf-rhythm.css", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/css")
+		http.ServeFile(w, r, "../../frontend/deaf-rhythm/game/deaf-rhythm.css")
+	})
 
 	r.HandleFunc("/", start).Methods("GET")
 	r.HandleFunc("/guess", guessHandler).Methods("POST")
