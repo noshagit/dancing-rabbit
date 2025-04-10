@@ -40,7 +40,8 @@ type song struct {
 }
 
 func main() {
-	tmpl = template.Must(template.ParseFiles("deaf_rhythm.html"))
+	tmpl = template.Must(template.ParseFiles("./deaf_rhythm.html"))
+	//frontend/deaf-rhythm/game/deaf-rhythm.html
 	playerGuesses = make(map[string]string)
 
 	getPlaylist()
@@ -64,7 +65,7 @@ func start(w http.ResponseWriter, r *http.Request) {
 	if currentSong.songName == "" {
 		getTrack()
 		getLyrics()
-		resetSongTimer(w, r)
+		//resetSongTimer(w, r)
 	}
 
 	for _, line := range currentSong.lyrics {
@@ -93,7 +94,7 @@ func guessHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
-func resetSongTimer(w http.ResponseWriter, r *http.Request) {
+/*func resetSongTimer(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("RESET TIMER")
 
 	if songTimer != nil {
@@ -107,7 +108,7 @@ func resetSongTimer(w http.ResponseWriter, r *http.Request) {
 		getLyrics()
 		// TODO refresh page to show the new lyrics
 	})
-}
+}*/
 
 func getLyrics() {
 	fmt.Println("GET LYRICS")
