@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', monospace;
+    background-color: #8174A0;
+    color: #433878;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-buttons {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    width: 100%;
+}
+
+.button {
+    background-color: #A888B5;
+    color: #433878;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: #ad92b8;
+    animation: buttonAnim 0.2s ease-out;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.vote-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 1.2em;
+}
+
+.nav-button {
+    font-size: 1.2em;
+    padding: 10px;
+    background-color: #A888B5;
+    color: #433878;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.player-name {
+    background-color: #EFB6C8;
+    color: #433878;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+
+.answers-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 700px;
+}
+
+.answer-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #EFB6C8;
+    padding: 15px 20px;
+    border-radius: 20px;
+}
+
+.answer-text {
+    font-size: 0.8em;
+    flex: 1;
+}
+
+.vote-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.vote-buttons button {
+    font-size: 0.8em;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: #A888B5;
+    color: #433878;
+    cursor: pointer;
+}
+
+.vote-buttons button.correct:hover {
+    background-color: #8FCB9B;
+}
+
+.vote-buttons button.incorrect:hover {
+    background-color: #F37C7C;
+}
+
+.players-status {
+    background-color: #A888B5;
+    color: #433878;
+    padding: 20px;
+    border-radius: 20px;
+    width: 280px;
+    max-height: fit-content;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    flex-shrink: 0;
+}
+
+#players-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.players-status h2 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+#players-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed #433878;
+    font-size: 0.9em;
+}
+
+@keyframes buttonAnim {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.vote-title {
+    text-align: center;
+    font-size: 1.8em;
+    margin: 10px auto 20px auto;
+    color: #EFB6C8;
+    text-shadow: 2px 2px #433878;
+    width: fit-content;
+}
+
+#leave-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+}
