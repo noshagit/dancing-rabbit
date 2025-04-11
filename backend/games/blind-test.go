@@ -26,6 +26,15 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", handler).Methods("GET")
 
+	r.HandleFunc("/blind-test.css", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/css")
+		http.ServeFile(w, r, "../../frontend/blind-test/game/blind-test.css")
+	})
+	r.HandleFunc("/blind-test.js", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/javascript")
+		http.ServeFile(w, r, "../../frontend/blind-test/game/blind-test.js")
+	})
+
 	fmt.Println("Server started on :8080")
 	http.ListenAndServe(":8080", r)
 }
@@ -33,7 +42,7 @@ func main() {
 func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("HANDLER")
 
-	tmpl := template.Must(template.ParseFiles("blind.html"))
+	tmpl := template.Must(template.ParseFiles("../../frontend/blind-test/game/blind-test.html"))
 	err2 := tmpl.Execute(w, currentSong.Preview)
 	if err2 != nil {
 		log.Fatalf("Failed to execute template: %v", err2)
