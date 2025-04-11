@@ -17,6 +17,7 @@ import (
 	"github.com/zmb3/spotify/v2"
 	spotifyauth "github.com/zmb3/spotify/v2/auth"
 	"golang.org/x/oauth2"
+	//"github.com/tsirysndr/go-deezer"
 )
 
 var (
@@ -38,6 +39,25 @@ type song struct {
 func main() {
 	getPlaylist()
 	getTrack()
+	fmt.Printf("name: %s\nartist: %s\npreview: %s\nid: %s\n", currentSong.songName, currentSong.artistName, currentSong.previewURL, currentSong.id)
+
+}
+
+func deezer(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("DEEZER")
+
+	client := deezer.NewClient()
+	searchQuery := fmt.Sprintf("%s %s", currentSong.songName, currentSong.artistName)
+	results, err := client.Search(searchQuery, deezer.SearchTypeTrack)
+	if err != nil {
+		log.Fatalf("Failed to search for track: %v", err)
+	}
+	if len(results.Data) > 0 {
+		previewURL := results.Data[0].PreviewURL
+		http.Redirect(w, r, previewURL, http.StatusFound)
+		return
+	}
+	log.Fatal("Failed to find track on Deezer")
 }
 
 func getPlaylist() {
@@ -52,7 +72,7 @@ func getPlaylist() {
 	client := spotify.New(spotifyauth.New().Client(ctx, token))
 
 	playlistID := spotify.ID("6i2Qd6OpeRBAzxfscNXeWp")                        // playlist cannot be private or made by spotify
-	fields := spotify.Fields("tracks(total,items(track(name,artists(name)))") // only get nb of tracks, track name and artist name
+	fields := spotify.Fields("tracks(total,items(track(id,name,artists(name)))") // only get nb of tracks, track name and artist name
 
 	var err error
 	playlist, err = client.GetPlaylist(ctx, playlistID, fields)
