@@ -1,46 +1,90 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const players = ["Emilia", "Quentin", "Nathaël", "Ilian", "Corentin"];
     const playersList = document.getElementById("players-list");
     const validateButton = document.getElementById("validate-button");
-    let timeLeft = 30;
+    const songInput = document.getElementById("song-input");
     const timerElement = document.querySelector(".timer");
+    const roundCounter = document.querySelector(".round-counter");
+    const audioPlayer = document.getElementById("audio-player");
+    const leaveButton = document.getElementById("leave-button");
 
-    function generatePlayerList() {
-        players.forEach(player => {
+    let playerName = "Nathaël";
+    let timeLeft = 30;
+    let countdown;
+
+    function updateGameState() {
+        fetch("/state")
+            .then(response => response.json())
+            .then(data => {
+                updateUI(data);
+            })
+            .catch(error => console.error("Error fetching game state:", error));
+    }
+
+    function updateUI(state) {
+        if (state.roundActive) {
+            timeLeft = state.timeLeft;
+            timerElement.textContent = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
+        }
+
+        roundCounter.textContent = `${state.currentRound}/${state.totalRounds}`;
+
+        playersList.innerHTML = "";
+        state.players.forEach(player => {
             const listItem = document.createElement("li");
             listItem.innerHTML = `
-                <span>${player}</span>
-                <span class="status not-finished">Not finished</span>
+                <span>${player.name}</span>
+                <span class="status ${player.status === "correct" ? "finished" : "not-finished"}">
+                    ${player.status === "correct" ? "Correct" : player.status === "wrong" ? "Incorrect" : player.status === "timeout" ? "....." : "..."}
+                </span>
+                <span class="score">${player.score} pts</span>
             `;
             playersList.appendChild(listItem);
         });
+
+        if (audioPlayer.src !== state.previewUrl && state.previewUrl) {
+            audioPlayer.src = state.previewUrl;
+            audioPlayer.play().catch(e => console.log("Audio play prevented:", e));
+        }
     }
 
-    function finishTurn(playerName) {
-        const items = document.querySelectorAll("#players-list li");
-        items.forEach(item => {
-            if (item.textContent.includes(playerName)) {
-                const status = item.querySelector(".status");
-                status.textContent = "Finished";
-                status.classList.remove("not-finished");
-                status.classList.add("finished");
-            }
-        });
-    }
-
-    validateButton.addEventListener("click", function () {
-        const randomPlayer = players[Math.floor(Math.random() * players.length)];
-        finishTurn(randomPlayer);
+    validateButton.addEventListener("click", function() {
+        const guess = songInput.value.trim();
+        if (guess) {
+            fetch("/guess", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    player: playerName,
+                    answer: guess
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                updateUI(data);
+                songInput.value = "";
+            })
+            .catch(error => console.error("Error submitting guess:", error));
+        }
     });
 
-    const countdown = setInterval(() => {
-        timeLeft--;
-        timerElement.textContent = `00:${timeLeft < 10 ? '0' : ''}${timeLeft}`;
-        if (timeLeft <= 0) {
-            clearInterval(countdown);
-            timerElement.textContent = "00:00";
-        }
-    }, 1000);
+    function startGame(players) {
+        fetch("/start", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(players)
+        })
+        .then(response => response.json())
+        .then(data => {
+            updateUI(data);
+        })
+        .catch(error => console.error("Error starting game:", error));
+    }
 
-    generatePlayerList();
+    startGame(["Quentin", "Ilian", "Nathaël"]);
+
+    setInterval(updateGameState, 100);
 });
