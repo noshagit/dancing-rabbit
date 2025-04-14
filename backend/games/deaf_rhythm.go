@@ -296,6 +296,7 @@ func registerPlayer(message Message, conn *websocket.Conn) {
 					Content: map[string]any{
 						"timerEnd": timerEndTime,
 						"round":    currentRound,
+						"maxRounds": maxRounds,
 					},
 				})
 			} else {
@@ -491,6 +492,7 @@ func startTimer() {
 	guessedMutex.Unlock()
 	timerEndTime = time.Now().Add(time.Duration(timerDuration) * time.Second).UnixMilli()
 	songTimer = time.AfterFunc(time.Duration(timerDuration)*time.Second, timerEnd)
+	fmt.Println(maxRounds)
 	broadcastMessage(Message{
 		Type: "timer_start",
 		Content: map[string]any{

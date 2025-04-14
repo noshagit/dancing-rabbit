@@ -2,7 +2,7 @@ let ws;
 let timerInterval;
 let playerID = localStorage.getItem('deafRhythmPlayerID');
 let playerName = localStorage.getItem('deafRhythmPlayerName') || generateRandomName();
-let roundNumber = 0;
+let roundNumber = 1;
 let hasGuessedThisRound = false;
 let connectionAttempts = 0;
 const MAX_RECONNECT_ATTEMPTS = 5;
@@ -77,6 +77,7 @@ function handleServerMessage(message) {
         case 'timer_start':
             clearNotifications();
             startTimer(content.timerEnd);
+            console.log(content.maxRounds);
             document.getElementById('round-counter').textContent = `${content.round}/${content.maxRounds}`;
             document.querySelectorAll('.status').forEach(status => {
                 status.textContent = 'Not finished';
