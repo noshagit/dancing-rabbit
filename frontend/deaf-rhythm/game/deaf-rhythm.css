@@ -133,9 +133,14 @@ input::placeholder {
 
 #players-list li {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    margin-bottom: 10px;
-    font-size: 1.2em;
+    align-items: flex-start;
+    word-break: break-word;
+    padding: 8px;
+    border-bottom: 1px dashed #433878;
+    font-size: 1em;
+    margin-bottom: 8px;
 }
 
 .status {
@@ -189,14 +194,46 @@ input::placeholder {
     margin: 0;
 }
 
-#players-list li {
+.player-info-row {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.player-name {
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 150px;
+}
+
+.player-score {
+    font-weight: bold;
+    color: #433878;
+    background-color: #EFB6C8;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 0.9em;
+}
+
+.current-player {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#players-list li {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
     word-break: break-word;
-    padding: 8px 0;
+    padding: 8px;
     border-bottom: 1px dashed #433878;
     font-size: 1em;
+    margin-bottom: 8px;
 }
 
 .status {
