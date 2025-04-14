@@ -23,7 +23,7 @@ import (
 )
 
 var (
-	playlist      *deezer.Tracks
+	playlist      []deezer.Track
 	previousSongs []string
 	playedSongs   []song
 	tmpl          *template.Template
@@ -160,7 +160,7 @@ func handleWS(w http.ResponseWriter, r *http.Request) {
 		log.Println("Error upgrading connection:", err)
 		return
 	}
-	fmt.Println("WebSocket connection established with:", conn.RemoteAddr())
+	fmt.Println("WebSocket connection esplaylistlished with:", conn.RemoteAddr())
 	go handleConnection(conn)
 }
 
@@ -294,8 +294,8 @@ func registerPlayer(message Message, conn *websocket.Conn) {
 				sendToClient(conn, Message{
 					Type: "timer_start",
 					Content: map[string]any{
-						"timerEnd": timerEndTime,
-						"round":    currentRound,
+						"timerEnd":  timerEndTime,
+						"round":     currentRound,
 						"maxRounds": maxRounds,
 					},
 				})
@@ -563,16 +563,21 @@ func getPlaylist() {
 		log.Printf("Failed to get playlist: %v", err)
 		return
 	}
-	playlist = tracks
-
+	playlist = tracks.Data
+	rand.Shuffle(len(playlist), func(i, j int) {
+		playlist[i], playlist[j] = playlist[j], playlist[i]
+	})
 	fmt.Println("Playlist loaded successfully")
 }
 
 func getTrack() {
 	fmt.Println("GET TRACK")
 
-	randomTrackIndex := rand.IntN(len(playlist.Data))
-	randomTrack := playlist.Data[randomTrackIndex]
+	if len(playlist) == 0 {
+		getPlaylist()
+	}
+	randomTrackIndex := rand.IntN(len(playlist))
+	randomTrack := playlist[randomTrackIndex]
 	if slices.Contains(previousSongs, randomTrack.Title) {
 		fmt.Println("song already played")
 		getTrack()
@@ -580,7 +585,9 @@ func getTrack() {
 	}
 	currentSong.songName = randomTrack.TitleShort
 	currentSong.artistName = randomTrack.Artist.Name
+
 	previousSongs = append(previousSongs, randomTrack.TitleShort)
+	playlist = slices.Delete(playlist, randomTrackIndex, randomTrackIndex+1)
 }
 
 func getLyrics() {
