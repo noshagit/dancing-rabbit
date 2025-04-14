@@ -9,6 +9,8 @@ document.getElementById("close-popup").addEventListener("click", function () {
 const timeArrow = document.getElementById("time-arrow");
 const timeOptions = document.getElementById("time-options");
 const selectedTime = document.getElementById("selected-time");
+let maxRounds = 5;
+let duration;
 
 timeArrow.addEventListener("click", function () {
     const isOpen = timeOptions.style.display === "block";
@@ -47,7 +49,6 @@ document.getElementById("reset-button").addEventListener("click", function () {
     selectedTime.textContent = "02:00";
 
     timeOptions.style.display = "none";
-    modeOptions.style.display = "none";
     timeArrow.classList.remove("arrow-down");
     timeArrow.classList.add("arrow-up");
     modeArrow.classList.remove("arrow-down");
@@ -60,7 +61,6 @@ document.getElementById("hard-button").addEventListener("click", function () {
     selectedTime.textContent = "00:30";
 
     timeOptions.style.display = "none";
-    modeOptions.style.display = "none";
     timeArrow.classList.remove("arrow-down");
     timeArrow.classList.add("arrow-up");
     modeArrow.classList.remove("arrow-down");
@@ -73,7 +73,6 @@ document.getElementById("easy-button").addEventListener("click", function () {
     selectedTime.textContent = "05:00";
 
     timeOptions.style.display = "none";
-    modeOptions.style.display = "none";
     timeArrow.classList.remove("arrow-down");
     timeArrow.classList.add("arrow-up");
     modeArrow.classList.remove("arrow-down");
