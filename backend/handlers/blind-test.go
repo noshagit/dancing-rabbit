@@ -51,7 +51,7 @@ type Player struct {
 func BlindTestHandler(r *mux.Router) {
 	r.HandleFunc("/blind-test/game/blind-test.html", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/html")
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit//frontend/blind-test/game/blind-test.html")
+		http.ServeFile(w, r, "/../../dancing-rabbit//frontend/blind-test/game/blind-test.html")
 	}).Methods("GET")
 
 	r.HandleFunc("/start", startGame).Methods("POST")
@@ -61,12 +61,12 @@ func BlindTestHandler(r *mux.Router) {
 
 	r.HandleFunc("/blind-test/game/blind-test.css", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/css")
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit//frontend/blind-test/game/blind-test.css")
+		http.ServeFile(w, r, "/../../frontend/blind-test/game/blind-test.css")
 	}).Methods("GET")
 
 	r.HandleFunc("/blind-test/game/blind-test.js", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/javascript")
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit//frontend/blind-test/game/blind-test.js")
+		http.ServeFile(w, r, "/../../frontend/blind-test/game/blind-test.js")
 	}).Methods("GET")
 
 	initGameState()
