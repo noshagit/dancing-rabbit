@@ -69,10 +69,10 @@ func main() {
 	handlers.PetitBacMenuHandler(router)
 
 	handlers.BlindTestMenuHandler(router)
+	handlers.BlindTestHandler(router)
 
 	handlers.DeafRhythmMenuHandler(router)
-
-	handlers.BlindTestHandler(router)
+	handlers.DeafRhythmHandler(router)
 
 	fmt.Println("Le serveur est lancer sous le port 8080 : http://localhost:8080")
 	http.ListenAndServe(":8080", router)
