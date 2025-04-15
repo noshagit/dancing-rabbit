@@ -216,8 +216,8 @@ func processMessage(conn *websocket.Conn, msg []byte) {
 		return
 	}
 
-	// fmt.Printf("Processing message of type '%s' from client %s\n", message.Type, conn.RemoteAddr())
-	// fmt.Printf("Message content raw: %+v\n", message.Content)
+	fmt.Printf("Processing message of type '%s' from client %s\n", message.Type, conn.RemoteAddr())
+	fmt.Printf("Message content raw: %+v\n", message.Content)
 
 	switch message.Type {
 	case "guess":
