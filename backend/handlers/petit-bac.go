@@ -63,50 +63,47 @@ type round struct {
 func PetitBacHandlers(r *mux.Router) {
 	r.HandleFunc("/petit-bac", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/html")
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/petit-bac/game/petit-bac.html")
+		http.ServeFile(w, r, "../../frontend/petit-bac/game/petit-bac.html")
 	}).Methods("GET")
 
 	r.HandleFunc("/petit-bac.js", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/javascript")
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/petit-bac/game/petit-bac.js")
+		http.ServeFile(w, r, "../../frontend/petit-bac/game/petit-bac.js")
 	}).Methods("GET")
 
 	r.HandleFunc("/petit-bac.css", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/css")
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/petit-bac/game/petit-bac.css")
+		http.ServeFile(w, r, "../../frontend/petit-bac/game/petit-bac.css")
 	}).Methods("GET")
 
-	r.HandleFunc("/vote.html", func(w http.ResponseWriter, r *http.Request) {
+	r.HandleFunc("/vote", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/html")
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/vote/vote.html")
-	}).Methods("GET")
-
-	r.HandleFunc("/score.html", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "text/html")
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/score/score.html")
-	}).Methods("GET")
-
-	r.HandleFunc("/menu.html", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "text/html")
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/main-menu/menu.html")
+		http.ServeFile(w, r, "../../frontend/vote/vote.html")
 	}).Methods("GET")
 
 	r.HandleFunc("/vote.js", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/javascript")
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/vote/vote.js")
+		http.ServeFile(w, r, "../../frontend/vote/vote.js")
 	}).Methods("GET")
+
 	r.HandleFunc("/vote.css", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/css")
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/vote/vote.css")
+		http.ServeFile(w, r, "../../frontend/vote/vote.css")
+	}).Methods("GET")
+
+	r.HandleFunc("/score", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/html")
+		http.ServeFile(w, r, "../../frontend/score/score.html")
 	}).Methods("GET")
 
 	r.HandleFunc("/score.js", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/javascript")
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/score/score.js")
+		http.ServeFile(w, r, "../../frontend/score/score.js")
 	}).Methods("GET")
+
 	r.HandleFunc("/score.css", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/css")
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/score/score.css")
+		http.ServeFile(w, r, "../../frontend/score/score.css")
 	}).Methods("GET")
 
 	r.HandleFunc("/scoreboard", scoreboard).Methods("GET")

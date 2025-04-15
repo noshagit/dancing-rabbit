@@ -21,15 +21,15 @@ type User struct {
 
 func LoginHandler(router *mux.Router) {
 	router.HandleFunc("/connexion/connexion.html", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/connexion/connexion.html")
+		http.ServeFile(w, r, "../../frontend/connexion/connexion.html")
 	}).Methods("GET")
 
 	router.HandleFunc("/connexion/connexion.css", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/connexion/connexion.css")
+		http.ServeFile(w, r, "../../frontend/connexion/connexion.css")
 	}).Methods("GET")
 
 	router.HandleFunc("/connexion/connexion.js", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/connexion/connexion.js")
+		http.ServeFile(w, r, "../../frontend/connexion/connexion.js")
 	}).Methods("GET")
 
 	router.HandleFunc("/connexion/connexion.html", func(w http.ResponseWriter, r *http.Request) {
@@ -50,7 +50,7 @@ func LoginHandler(router *mux.Router) {
 			return
 		}
 
-		db, err := sql.Open("sqlite3", "/home/ilian/dancing-rabbit/backend/database/dancing.db")
+		db, err := sql.Open("sqlite3", "../../backend/database/dancing.db")
 		if err != nil {
 			http.Error(w, "Erreur de connexion à la base de données", http.StatusInternalServerError)
 			log.Println("Erreur de connexion à la base de données:", err)
@@ -99,15 +99,15 @@ func LoginHandler(router *mux.Router) {
 func RegisterHandler(router *mux.Router) {
 
 	router.HandleFunc("/inscription/inscription.html", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/inscription/inscription.html")
+		http.ServeFile(w, r, "../../frontend/inscription/inscription.html")
 	}).Methods("GET")
 
 	router.HandleFunc("/inscription/inscription.css", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/inscription/inscription.css")
+		http.ServeFile(w, r, "../../frontend/inscription/inscription.css")
 	}).Methods("GET")
 
 	router.HandleFunc("/inscription/inscription.js", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/inscription/inscription.js")
+		http.ServeFile(w, r, "../../frontend/inscription/inscription.js")
 	}).Methods("GET")
 
 	router.HandleFunc("/inscription/inscription.html", func(w http.ResponseWriter, r *http.Request) {
@@ -136,7 +136,7 @@ func RegisterHandler(router *mux.Router) {
 
 		hashedPassword := hashPassword(user.Password)
 
-		db, err := sql.Open("sqlite3", "/home/ilian/dancing-rabbit/backend/database/dancing.db")
+		db, err := sql.Open("sqlite3", "../../backend/database/dancing.db")
 		if err != nil {
 			http.Error(w, "Erreur de connexion à la base de données", http.StatusInternalServerError)
 			log.Println("Erreur de connexion DB:", err)
@@ -166,19 +166,19 @@ func RegisterHandler(router *mux.Router) {
 func ProfileHandler(router *mux.Router) {
 
 	router.HandleFunc("/profil/profil.html", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/profil/profil.html")
+		http.ServeFile(w, r, "../../frontend/profil/profil.html")
 	}).Methods("GET")
 
 	router.HandleFunc("/profil/profil.css", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/profil/profil.css")
+		http.ServeFile(w, r, "../../frontend/profil/profil.css")
 	}).Methods("GET")
 
 	router.HandleFunc("/profil/profil.js", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/profil/profil.js")
+		http.ServeFile(w, r, "../../frontend/profil/profil.js")
 	}).Methods("GET")
 
 	router.HandleFunc("/frontend/images/bunny.png", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/images/bunny.png")
+		http.ServeFile(w, r, "../../frontend/images/bunny.png")
 	}).Methods("GET")
 
 	router.HandleFunc("/api/get-profile", func(w http.ResponseWriter, r *http.Request) {
@@ -188,7 +188,7 @@ func ProfileHandler(router *mux.Router) {
 			return
 		}
 
-		db, err := sql.Open("sqlite3", "/home/ilian/dancing-rabbit/backend/database/dancing.db")
+		db, err := sql.Open("sqlite3", "../../backend/database/dancing.db")
 		if err != nil {
 			http.Error(w, "Erreur de connexion à la base de données", http.StatusInternalServerError)
 			return
@@ -228,7 +228,7 @@ func LogoutHandler(router *mux.Router) {
 	router.HandleFunc("/logout", func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("session_token")
 		if err == nil {
-			db, err := sql.Open("sqlite3", "/home/ilian/dancing-rabbit/backend/database/dancing.db")
+			db, err := sql.Open("sqlite3", "../../backend/database/dancing.db")
 			if err == nil {
 				_, err := db.Exec("DELETE FROM sessions WHERE token = ?", cookie.Value)
 				if err != nil {

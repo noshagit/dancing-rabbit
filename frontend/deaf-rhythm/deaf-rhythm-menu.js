@@ -79,8 +79,3 @@ document.getElementById("easy-button").addEventListener("click", function () {
     modeArrow.classList.remove("arrow-down");
     modeArrow.classList.add("arrow-up");
 });
-
-document.getElementById("play_button").addEventListener("click", function () {
-    window.location.href = "/deaf-rhythm/game/deaf-rhythm.html";
-});
-

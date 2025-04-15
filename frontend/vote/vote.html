@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation des Réponses</title>
+    <link rel="stylesheet" href="vote.css">
+</head>
+<body>
+    <div class="top-buttons">
+        <a href="/main-menu/menu.html" id="leave-button" class="button">Quitter</a>
+        <h1 class="vote-title">Maintenant, VOTEZ !</h1>
+    </div>
+
+    <div class="main-content">
+        <div class="vote-panel">
+            <div class="navigation">
+                <button class="nav-button" id="prev-player">&lt;</button>
+                <div class="player-name" id="player-name">Joueur 1</div>
+                <button class="nav-button" id="next-player">&gt;</button>
+            </div>
+
+            <div class="answers-container" id="answers-container">
+            </div>
+        </div>
+
+        <div class="players-status">
+            <h2>Joueurs</h2>
+            <ul id="players-list"></ul>
+        </div>
+    </div>
+
+    <script src="vote.js"></script>
+</body>
+</html>

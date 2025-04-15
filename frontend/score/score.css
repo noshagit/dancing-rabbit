@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    font-family: 'Press Start 2P', monospace;
+    background-color: #8174A0;
+    color: #433878;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    gap: 10px;
+}
+
+.auth-button {
+    background-color: #A888B5;
+    color: #433878;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.auth-button:hover {
+    background-color: #ad92b8;
+    animation: buttonAnim 0.2s ease-out;
+}
+
+h1 {
+    font-size: 2em;
+    margin-top: 50px;
+}
+
+.menu-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 50px;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.game-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.game-button {
+    background-color: #A888B5;
+    color: #433878;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-size: 1.2em;
+    border: none;
+    cursor: pointer;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.game-button:hover {
+    background-color: #ad92b8;
+    animation: buttonAnim 0.2s ease-out;
+}
+
+.info-button {
+    background-color: #EFB6C8;
+    color: black;
+    padding: 10px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    width: 40px;
+    height: 40px;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.info-button:hover {
+    background-color: #f7d1de;
+    animation: buttonAnim 0.2s ease-out;
+}
+
+.bunny-container {
+    position: absolute;
+    bottom: 80px;
+    left : 50%;
+    transform: translateX(-50%);
+}
+
+.bunny {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 50%;
+    position: relative;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bunny .ear {
+    position: absolute;
+    width: 25px;
+    height: 50px;
+    background: white;
+    border-radius: 50px 50px 0 0;
+    top: -40px;
+}
+
+.bunny .ear.left {
+    left: 5px;
+    transform: rotate(-20deg);
+}
+
+.bunny .ear.right {
+    right: 5px;
+    transform: rotate(20deg);
+}
+
+.bunny .ear::before {
+    content: "";
+    position: absolute;
+    width: 13px;
+    height: 38px;
+    background: #FFC0CB;
+    border-radius: 50px 50px 0 0;
+    left: 6px;
+    top: 5px;
+}
+
+.bunny .eye {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: black;
+    border-radius: 50%;
+    top: 30px;
+}
+
+.bunny .eye.left {
+    left: 20px;
+}
+
+.bunny .eye.right {
+    right: 20px;
+}
+
+footer {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #A888B5;
+    color: #433878;
+    font-weight: bold;
+    text-align: center;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #EFB6C8;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.popup-content button {
+    background-color: #A888B5;
+    color: black;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Press Start 2P', monospace;
+}
+
+@keyframes buttonAnim {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.scoreboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.score-entry {
+    background-color: #A888B5;
+    color: #433878;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 20px;
+    width: 60%;
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1em;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.score-entry:first-child {
+    background-color: #EFB6C8;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.menu-button {
+    background-color: #A888B5;
+    color: #433878;
+    padding: 15px 30px;
+    margin-top: 40px;
+    border-radius: 30px;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.menu-button:hover {
+    background-color: #ad92b8;
+    animation: buttonAnim 0.2s ease-out;
+}

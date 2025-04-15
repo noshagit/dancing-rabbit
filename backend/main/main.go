@@ -1,6 +1,7 @@
 package main
 
 import (
+	"Backend/games"
 	"Backend/handlers"
 	"fmt"
 	"net/http"
@@ -13,41 +14,41 @@ import (
 
 func landingPageHandler(router *mux.Router) {
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/index.html")
+		http.ServeFile(w, r, "../../frontend/index.html")
 	}).Methods("GET")
 
 	router.HandleFunc("/index.js", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/index.js")
+		http.ServeFile(w, r, "../../frontend/index.js")
 	}).Methods("GET")
 
 	router.HandleFunc("/index.css", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/index.css")
+		http.ServeFile(w, r, "../../frontend/index.css")
 	}).Methods("GET")
 }
 
 func presentationHandler(router *mux.Router) {
 	router.HandleFunc("/main-menu/menu.html", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/main-menu/menu.html")
+		http.ServeFile(w, r, "../../frontend/main-menu/menu.html")
 	}).Methods("GET")
 
 	router.HandleFunc("/main-menu/menu.js", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/main-menu/menu.js")
+		http.ServeFile(w, r, "../../frontend/main-menu/menu.js")
 	}).Methods("GET")
 
 	router.HandleFunc("/main-menu/menu.css", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/main-menu/menu.css")
+		http.ServeFile(w, r, "../../frontend/main-menu/menu.css")
 	}).Methods("GET")
 
 	router.HandleFunc("/images/petit-bac.png", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/images/petit-bac.png")
+		http.ServeFile(w, r, "../../frontend/images/petit-bac.png")
 	}).Methods("GET")
 
 	router.HandleFunc("/images/deaf-rhythm.png", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/images/deaf-rhythm.png")
+		http.ServeFile(w, r, "../../frontend/images/deaf-rhythm.png")
 	}).Methods("GET")
 
 	router.HandleFunc("/images/blind-test.png", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "/home/ilian/dancing-rabbit/frontend/images/blind-test.png")
+		http.ServeFile(w, r, "../../frontend/images/blind-test.png")
 	}).Methods("GET")
 }
 
@@ -73,7 +74,7 @@ func main() {
 	handlers.BlindTestHandler(router)
 
 	handlers.DeafRhythmMenuHandler(router)
-	handlers.DeafRhythmHandler(router)
+	games.DeafRhythmHandler(router)
 
 	fmt.Println("Le serveur est lancer sous le port 8080 : http://localhost:8080")
 	http.ListenAndServe(":8080", router)
