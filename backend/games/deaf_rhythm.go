@@ -60,13 +60,13 @@ type song struct {
 }
 
 func DeafRhythmHandler(r *mux.Router) {
-	r.HandleFunc("/", start).Methods("GET")
 	r.HandleFunc("/ws", handleWS)
 	r.HandleFunc("/scoreboard", showScoreboard).Methods("GET")
 
 	r.HandleFunc("/deaf-rhythm/game/deaf-rhythm.html", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/html")
 		http.ServeFile(w, r, "../../frontend/deaf-rhythm/game/deaf-rhythm.html")
+		start(w, r)
 	})
 	r.HandleFunc("/deaf-rhythm/game/deaf-rhythm.js", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/javascript")
@@ -108,11 +108,6 @@ func start(w http.ResponseWriter, r *http.Request) {
 		} else {
 			fmt.Println("No clients connected yet, deferring timer start")
 		}
-	}
-	err := tmpl.Execute(w, nil)
-	if err != nil {
-		log.Println("Error executing template:", err)
-		http.Error(w, "Error rendering page", http.StatusInternalServerError)
 	}
 }
 
@@ -221,18 +216,23 @@ func processMessage(conn *websocket.Conn, msg []byte) {
 		return
 	}
 
-	fmt.Printf("Processing message of type '%s' from client %s\n", message.Type, conn.RemoteAddr())
-	fmt.Printf("Message content raw: %+v\n", message.Content)
+	// fmt.Printf("Processing message of type '%s' from client %s\n", message.Type, conn.RemoteAddr())
+	// fmt.Printf("Message content raw: %+v\n", message.Content)
 
 	switch message.Type {
 	case "guess":
-		fmt.Println("Received guess message")
-		fmt.Printf("Guess content type: %T, value: %v\n", message.Content, message.Content)
-		guessHandler(conn, message.Content.(string))
+		guess, ok := message.Content.(string)
+		if !ok {
+			log.Printf("Invalid content type for 'guess': %T\n", message.Content)
+			return
+		}
+		guessHandler(conn, guess)
 	case "register_player":
 		registerPlayer(message, conn)
 	case "request_lyrics":
 		requestLyrics(conn)
+	default:
+		fmt.Printf("Unknown message type: %s\n", message.Type)
 	}
 }
 
