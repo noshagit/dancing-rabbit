@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const ws = new WebSocket(`ws://${window.location.hostname}:8080/ws`);
+    const ws = new WebSocket(`ws://${window.location.hostname}:8080/bac/ws`);
     let playersData = [];
     let currentIndex = 0;
     const playerNameEl = document.getElementById("player-name");
