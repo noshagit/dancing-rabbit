@@ -732,7 +732,7 @@ func submit(conn *websocket.Conn, answers map[string]string) {
 		Type:    "player_submitted",
 		Content: player.Name,
 	})
-	time.AfterFunc(2*time.Second, func() {
+	time.AfterFunc(1*time.Second, func() {
 		randomLetter()
 		timerEnd()
 	})

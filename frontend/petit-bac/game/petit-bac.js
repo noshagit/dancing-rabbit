@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
             showMessage('Game Over! Going to voting screen...', 'end-game');
             setTimeout(() => {
                 window.location.href = '/vote';
-            }, 2000);
+            }, 1000);
 
         } else if (type === 'player_submitted') {
             playerSubmitted(content);
@@ -174,13 +174,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const notification = document.createElement('div');
         notification.className = `notification ${type || ''}`;
         notification.textContent = message;
-
-        if (type === 'info')
-            notification.style.backgroundColor = '#3498db';
-        if (type === 'success')
-            notification.style.backgroundColor = '#2ecc71';
-        if (type === 'error')
-            notification.style.backgroundColor = '#e74c3c';
 
         messageArea.appendChild(notification);
         setTimeout(() => notification.remove(), 3000);
