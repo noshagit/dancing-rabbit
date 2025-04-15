@@ -30,7 +30,7 @@ function connectWebSocket() {
     connectionAttempts++;
     console.log(`Connecting... (${connectionAttempts}/${MAX_RECONNECT_ATTEMPTS})`);
 
-    ws = new WebSocket("ws://" + location.host + "/ws");
+    ws = new WebSocket("ws://" + location.host + "/deaf/ws");
 
     ws.onopen = () => {
         console.log('Connected!');

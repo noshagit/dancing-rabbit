@@ -107,7 +107,7 @@ func PetitBacHandlers(r *mux.Router) {
 	}).Methods("GET")
 
 	r.HandleFunc("/scoreboard", scoreboard).Methods("GET")
-	r.HandleFunc("/ws", handleWS).Methods("GET")
+	r.HandleFunc("/bac/ws", handleWS).Methods("GET")
 	r.HandleFunc("/game", game).Methods("GET")
 	r.HandleFunc("/vote", vote).Methods("GET")
 }

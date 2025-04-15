@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log(`Game will have ${maxRounds} rounds, ${roundDuration} seconds each`);
 
-    const ws = new WebSocket(`ws://${window.location.host}/ws`);
+    const ws = new WebSocket(`ws://${window.location.host}/bac/ws`);
     let hasSubmitted = false;
     let playerId = "";
     const playersList = document.getElementById("players-list");

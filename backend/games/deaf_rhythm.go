@@ -60,7 +60,7 @@ type song struct {
 }
 
 func DeafRhythmHandler(r *mux.Router) {
-	r.HandleFunc("/ws", handleWS)
+	r.HandleFunc("/deaf/ws", handleWS)
 	r.HandleFunc("/scoreboard", showScoreboard).Methods("GET")
 
 	r.HandleFunc("/deaf-rhythm/game/deaf-rhythm.html", func(w http.ResponseWriter, r *http.Request) {
