@@ -19,6 +19,7 @@ require (
 	github.com/dghubble/sling v1.3.0 // indirect
 	github.com/google/go-querystring v1.0.0 // indirect
 	github.com/gopherjs/gopherjs v1.17.2 // indirect
+	github.com/gorilla/websocket v1.5.3 // indirect
 	github.com/gosimple/slug v1.2.0 // indirect
 	github.com/rainycape/unidecode v0.0.0-20150907023854-cb7f23ec59be // indirect
 	golang.org/x/net v0.23.0 // indirect

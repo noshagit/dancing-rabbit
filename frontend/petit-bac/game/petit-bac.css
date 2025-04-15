@@ -17,9 +17,11 @@ body {
 
 .top-buttons {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     padding: 20px;
     width: 100%;
+    max-width: 100%;
+    z-index: 2;
 }
 
 .button {
@@ -236,4 +238,9 @@ input::placeholder {
     width: 100%;
     max-width: 700px;
     padding: 20px;
+}
+
+.timer {
+    font-size: 1.5em;
+    font-weight: bold;
 }

@@ -67,6 +67,7 @@ func main() {
 	handlers.LogoutHandler(router)
 
 	handlers.PetitBacMenuHandler(router)
+	handlers.PetitBacHandlers(router)
 
 	handlers.BlindTestMenuHandler(router)
 	handlers.BlindTestHandler(router)

@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Petit Bac</title>
-    <link rel="stylesheet" href="petit-bac.css">
+    <link rel="stylesheet" href="/petit-bac.css">
 </head>
 <body>
     <div class="top-buttons">
-        <a href="/main-menu/menu.html" id="leave-button" class="button">Quitter</a>
+        <a href="/main-menu" id="leave-button" class="button">Quitter</a>
+        <span class="timer">00:30</span>
     </div>
 
     <div class="round-counter">1/10</div>
 
     <div class="main-content">
         <div class="left-panel">
-            <div class="current-letter">Lettre : T</div>
+            <div class="current-letter" id="current-letter">Lettre : T</div>
 
             <div class="choices-wrapper">
                 <div class="choice">
@@ -37,6 +38,8 @@
             </div>
 
             <button class="button validate-button" id="validate-button">Valider</button>
+
+            <div id="notification-area" class="notification-area"></div>
         </div>
 
         <div class="players-status">
@@ -45,6 +48,64 @@
         </div>
     </div>
 
-    <script src="petit-bac.js"></script>
+    <script src="/petit-bac.js"></script>
+    <script>
+        // Initialize game parameters from server using the pre-encoded JSON
+        const gameParamsStr = `{{.paramsJSON}}`;
+        
+        // Parse the JSON string to get the actual object
+        let gameParams;
+        try {
+            gameParams = JSON.parse(gameParamsStr);
+        } catch (e) {
+            console.error("Error parsing game parameters:", e);
+            gameParams = {
+                letter: 'A',
+                categories: ["Artist", "Genre", "Song"],
+                rounds: 5,
+                duration: 30
+            };
+        }
+        
+        // Now we can safely extract parameters from the object
+        const initialLetter = gameParams.letter || 'A';
+        const initialCategories = gameParams.categories || [];
+        window.maxRounds = gameParams.rounds || 5;
+        window.roundDuration = gameParams.duration || 30;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update UI with initial parameters
+            const letterElement = document.getElementById('current-letter');
+            if (letterElement) {
+                letterElement.textContent = `Lettre : ${initialLetter}`;
+            }
+            
+            // Update round counter with max rounds
+            const roundCounter = document.querySelector('.round-counter');
+            if (roundCounter) {
+                roundCounter.textContent = `1/${window.maxRounds}`;
+            }
+            
+            // Initialize categories
+            try {
+                const choicesWrapper = document.querySelector('.choices-wrapper');
+                if (choicesWrapper && initialCategories && initialCategories.length > 0) {
+                    choicesWrapper.innerHTML = '';
+                    
+                    initialCategories.forEach(category => {
+                        const div = document.createElement('div');
+                        div.className = 'choice';
+                        div.innerHTML = `
+                            <div class="choice-label">${category}</div>
+                            <input type="text" class="answer-input" data-category="${category}" placeholder="Entrez votre réponse...">
+                        `;
+                        choicesWrapper.appendChild(div);
+                    });
+                }
+            } catch (err) {
+                console.error("Error initializing categories:", err);
+            }
+        });
+    </script>
 </body>
 </html>
