@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blind Test</title>
+    <link rel="stylesheet" href="blind-test.css">
+</head>
+<body>
+    <div class="top-buttons">
+        <a href="/main-menu/menu.html" id="leave-button" class="button">Quitter</a>
+        <span class="timer">00:30</span>
+    </div>
+
+    <div class="round-counter">1/10</div>
+
+    <div class="main-content">
+        <div class="left-panel">
+            <div class="player-panel">
+                <audio id="audio-player" controls autoplay>
+                    Votre navigateur ne supporte pas l'élément audio.
+                </audio>
+            </div>
+
+            <div class="input-wrapper">
+                <input type="text" placeholder="Entrez le nom de la chanson..." id="song-input">
+                <button class="button validate-button" id="validate-button">Valider</button>
+            </div>
+        </div>
+
+        <div class="players-status">
+            <h2>Players</h2>
+            <ul id="players-list"></ul>
+        </div>
+    </div>
+
+    <script src="blind-test.js"></script>
+</body>
+</html>

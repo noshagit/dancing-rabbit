@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', monospace;
+    background-color: #8174A0;
+    color: #433878;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    width: 100%;
+}
+
+.button {
+    background-color: #A888B5;
+    color: #433878;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: #ad92b8;
+    animation: buttonAnim 0.2s ease-out;
+}
+
+.round-counter {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #EFB6C8;
+    background-color: #433878;
+    padding: 10px 20px;
+    border-radius: 20px;
+    align-self: center;
+    margin-bottom: 10px;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 10px;
+    gap: 20px;
+}
+
+.left-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-panel {
+    background-color: #EFB6C8;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 700px;
+}
+
+audio {
+    width: 100%;
+    max-width: 600px;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+#song-input {
+    background-color: #A888B5;
+    border: none;
+    color: #433878;
+    font-size: 1em;
+    padding: 15px 25px;
+    border-radius: 15px;
+    font-family: 'Press Start 2P', monospace;
+    width: 100%;
+    max-width: 600px;
+}
+
+#song-input::placeholder {
+    color: #433878;
+    opacity: 0.7;
+}
+
+.validate-button {
+    font-family: 'Press Start 2P', monospace;
+}
+
+.players-status {
+    background-color: #A888B5;
+    color: #433878;
+    padding: 20px;
+    border-radius: 20px;
+    width: 280px;
+    max-height: fit-content;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    flex-shrink: 0;
+}
+
+#players-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.players-status h2 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+#players-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed #433878;
+    font-size: 0.9em;
+}
+
+.status {
+    font-size: 0.8em;
+}
+
+.not-finished {
+    color: red;
+}
+
+.finished {
+    color: green;
+}
+
+.timer {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+@keyframes buttonAnim {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .players-status {
+        width: 90%;
+        margin-top: 20px;
+    }
+
+    .input-wrapper {
+        width: 100%;
+    }
+
+    audio {
+        max-width: 90%;
+    }
+}
