@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Vote des réponses</title>
+    <link rel="stylesheet" href="/static/vote.css">
+</head>
+<body>
+
+    <h1>Tour {{.CurrentRound}} / {{.MaxRounds}} - Validation des réponses</h1>
+
+    <form method="POST" action="/vote">
+        {{range .Players}}
+            {{ $player := . }}
+            <h2>{{$player.Name}}</h2>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Catégorie</th>
+                        <th>Réponse</th>
+                        <th>Valider</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{range $category, $answer := $player.Answers}}
+                    <tr>
+                        <td>{{$category}}</td>
+                        <td>{{$answer}}</td>
+                        <td>
+                            <input type="checkbox" name="{{$player.Name}}_{{$category}}" {{if index $player.Vote $category}}checked{{end}}>
+                        </td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+            <br>
+        {{end}}
+
+        <input type="submit" value="Soumettre les votes">
+    </form>
+
+</body>
+</html>

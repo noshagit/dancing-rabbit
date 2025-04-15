@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Fin de la partie</title>
+    <link rel="stylesheet" href="/static/end.css">
+</head>
+<body>
+    <h1>Fin de la partie</h1>
+    <h2>Classement des joueurs</h2>
+    <ol>
+        {{range .}}
+            <li><strong>{{.Name}}</strong> — Score : {{.CalculateScore}}</li>
+        {{end}}
+    </ol>
+    <a href="/start"><button>Rejouer</button></a>
+</body>
+</html>

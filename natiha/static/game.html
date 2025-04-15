@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu du Petit Bac</title>
+    <link rel="stylesheet" href="/static/game.css">
+</head>
+<body>
+    <div class="top-buttons">
+        <a href="/start" class="button">Retour</a>
+    </div>
+
+    <div class="container">
+        <h1>Jeu du Petit Bac</h1>
+        <p>Joueur actuel : <strong>{{(index .Players .CurrentTurn).Name}}</strong></p>
+        <p>Lettre tirée : <strong>{{.RandomLetter}}</strong></p>
+
+        <form action="/play" method="post" class="game-form">
+            {{range .Categories}}
+                <label for="{{.}}" class="category-label">{{.}}: <input type="text" id="{{.}}" name="{{.}}" required></label><br>
+            {{end}}
+            <button type="submit" class="button">Soumettre</button>
+        </form>
+    </div>
+</body>
+</html>

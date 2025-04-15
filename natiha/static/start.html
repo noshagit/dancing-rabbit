@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Jeu du Petit Bac</title>
+    <link rel="stylesheet" href="/static/start.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Ajouter des joueurs</h1>
+
+        <form action="/start" method="post" class="player-form">
+            <input type="hidden" name="action" value="add">
+            <input type="text" name="name" placeholder="Nom du joueur" required class="input-field">
+            <button type="submit" class="button">Ajouter</button>
+        </form>
+
+        <h2>Joueurs ajoutés :</h2>
+        <ul class="player-list">
+            {{range .Players}}
+                <li class="player-item">
+                    {{.Name}}
+                    <form method="POST" style="display:inline;">
+                        <input type="hidden" name="action" value="remove">
+                        <input type="hidden" name="name" value="{{.Name}}">
+                        <button type="submit" class="button remove-button">Supprimer</button>
+                    </form>
+                </li>
+            {{end}}
+        </ul>
+
+        <form action="/start" method="post" class="start-form">
+            <input type="hidden" name="action" value="start">
+            <label for="rounds">Nombre de rounds :</label>
+            <input type="number" id="rounds" name="rounds" min="1" value="5" required class="input-field">
+            <button type="submit" class="button">Démarrer la partie</button>
+        </form>
+    </div>
+</body>
+</html>
